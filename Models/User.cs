@@ -37,10 +37,5 @@ namespace TravelBookingApp.Models
         [Required(ErrorMessage = "City is required.")]
         [StringLength(50, ErrorMessage = "Departure city must be at most 50 characters.")]
         public string City { get; set;}
-
-        public User()
-        {
-            
-        }
     }
 }

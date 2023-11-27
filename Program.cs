@@ -1,7 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using TravelBookingApp.Models.Data_Access_Layer;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<RihlaDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("SQLiteConn")));
 
 var app = builder.Build();
 
