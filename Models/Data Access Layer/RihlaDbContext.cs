@@ -8,6 +8,7 @@ namespace TravelBookingApp.Models.Data_Access_Layer
         public DbSet<Flight> Flights { get; set; }
         public DbSet<Hotel> Hotels { get; set; }
         public DbSet<Car> Cars { get; set; }
+
         public DbSet<User> Users { get; set; }
         public DbSet<Trip> Trips { get; set; }
 
