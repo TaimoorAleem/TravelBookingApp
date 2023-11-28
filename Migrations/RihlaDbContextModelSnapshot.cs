@@ -23,11 +23,13 @@ namespace TravelBookingApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("City")
-                        .IsRequired()
+                    b.Property<DateTime>("Availability")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Color")
+                    b.Property<int>("Capacity")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -35,6 +37,11 @@ namespace TravelBookingApp.Migrations
                         .HasColumnType("REAL");
 
                     b.Property<string>("Dropoff")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DropoffTime")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -48,6 +55,7 @@ namespace TravelBookingApp.Migrations
 
                     b.Property<string>("Pickup")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("PickupTime")
@@ -72,6 +80,16 @@ namespace TravelBookingApp.Migrations
                     b.Property<int>("FlightId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("AirlineCode")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AirlineName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("ArrivalTime")
                         .IsRequired()

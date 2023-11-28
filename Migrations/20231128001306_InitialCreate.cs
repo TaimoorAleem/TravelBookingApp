@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TravelBookingApp.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -57,12 +57,14 @@ namespace TravelBookingApp.Migrations
                     Make = table.Column<string>(type: "TEXT", nullable: false),
                     Model = table.Column<string>(type: "TEXT", nullable: false),
                     Year = table.Column<int>(type: "INTEGER", nullable: false),
-                    Color = table.Column<string>(type: "TEXT", nullable: false),
                     DailyRate = table.Column<double>(type: "REAL", nullable: false),
                     City = table.Column<string>(type: "TEXT", nullable: false),
-                    Pickup = table.Column<string>(type: "TEXT", nullable: false),
-                    Dropoff = table.Column<string>(type: "TEXT", nullable: false),
+                    Pickup = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Dropoff = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    DropoffTime = table.Column<DateTime>(type: "TEXT", nullable: false),
                     PickupTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Capacity = table.Column<int>(type: "INTEGER", nullable: false),
+                    Availability = table.Column<DateTime>(type: "TEXT", nullable: false),
                     TripId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
@@ -85,6 +87,8 @@ namespace TravelBookingApp.Migrations
                     ArrivalTime = table.Column<DateTime>(type: "TEXT", nullable: false),
                     DepartureCity = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     Destination = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    AirlineName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    AirlineCode = table.Column<string>(type: "TEXT", maxLength: 3, nullable: false),
                     TripId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>

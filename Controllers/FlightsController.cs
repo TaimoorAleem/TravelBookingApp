@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TravelBookingApp.Models;
 using TravelBookingApp.Models.Data_Access_Layer;
@@ -22,21 +19,20 @@ namespace TravelBookingApp.Controllers
         // GET: Flights
         public async Task<IActionResult> Index()
         {
-              return _context.Flights != null ? 
-                          View(await _context.Flights.ToListAsync()) :
-                          Problem("Entity set 'RihlaDbContext.Flights'  is null.");
+            return View(await _context.Flights.ToListAsync());
         }
 
         // GET: Flights/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Flights == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var flight = await _context.Flights
                 .FirstOrDefaultAsync(m => m.FlightId == id);
+
             if (flight == null)
             {
                 return NotFound();
@@ -52,11 +48,9 @@ namespace TravelBookingApp.Controllers
         }
 
         // POST: Flights/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FlightId,DepartureTime,ArrivalTime,DepartureCity,Destination")] Flight flight)
+        public async Task<IActionResult> Create([Bind("FlightId,DepartureTime,ArrivalTime,DepartureCity,Destination,AirlineName,AirlineCode")] Flight flight)
         {
             if (ModelState.IsValid)
             {
@@ -70,12 +64,13 @@ namespace TravelBookingApp.Controllers
         // GET: Flights/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Flights == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var flight = await _context.Flights.FindAsync(id);
+
             if (flight == null)
             {
                 return NotFound();
@@ -84,11 +79,9 @@ namespace TravelBookingApp.Controllers
         }
 
         // POST: Flights/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FlightId,DepartureTime,ArrivalTime,DepartureCity,Destination")] Flight flight)
+        public async Task<IActionResult> Edit(int id, [Bind("FlightId,DepartureTime,ArrivalTime,DepartureCity,Destination,AirlineName,AirlineCode")] Flight flight)
         {
             if (id != flight.FlightId)
             {
@@ -121,13 +114,14 @@ namespace TravelBookingApp.Controllers
         // GET: Flights/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Flights == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var flight = await _context.Flights
                 .FirstOrDefaultAsync(m => m.FlightId == id);
+
             if (flight == null)
             {
                 return NotFound();
@@ -141,23 +135,20 @@ namespace TravelBookingApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Flights == null)
-            {
-                return Problem("Entity set 'RihlaDbContext.Flights'  is null.");
-            }
             var flight = await _context.Flights.FindAsync(id);
+
             if (flight != null)
             {
                 _context.Flights.Remove(flight);
+                await _context.SaveChangesAsync();
             }
-            
-            await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
         private bool FlightExists(int id)
         {
-          return (_context.Flights?.Any(e => e.FlightId == id)).GetValueOrDefault();
+            return _context.Flights.Any(e => e.FlightId == id);
         }
     }
 }

@@ -27,19 +27,30 @@ namespace TravelBookingApp.Models
         [StringLength(50, ErrorMessage = "Destination must be at most 50 characters.")]
         public string Destination { get; set; }
 
-        // Constructors (you can add more if needed)
+        [Required(ErrorMessage = "Airline name is required.")]
+        [StringLength(50, ErrorMessage = "Airline name must be at most 50 characters.")]
+        [Display(Name = "Airline Name")]
+        public string AirlineName { get; set; }
+
+        [Required(ErrorMessage = "Airline code is required.")]
+        [StringLength(6, MinimumLength = 6, ErrorMessage = "Airline code must be 6 characters.")]
+        [Display(Name = "Airline Code")]
+        public string AirlineCode { get; set; }
+
+        // Parameterless constructor for scaffolding
         public Flight()
         {
-            // Default constructor
         }
 
-        public Flight(int flightId, DateTime departureTime, DateTime arrivalTime, string departureCity, string destination)
+        public Flight(int flightId, DateTime departureTime, DateTime arrivalTime, string departureCity, string destination, string airlineName, string airlineCode)
         {
             FlightId = flightId;
             DepartureTime = departureTime;
             ArrivalTime = arrivalTime;
             DepartureCity = departureCity;
             Destination = destination;
+            AirlineName = airlineName;
+            AirlineCode = airlineCode;
         }
 
         // Additional methods or validations can be added here
