@@ -72,12 +72,7 @@ namespace TravelBookingApp.Migrations
                     Year = table.Column<int>(type: "INTEGER", nullable: false),
                     DailyRate = table.Column<double>(type: "REAL", nullable: false),
                     City = table.Column<string>(type: "TEXT", nullable: false),
-                    Pickup = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Dropoff = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    DropoffTime = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    PickupTime = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Capacity = table.Column<int>(type: "INTEGER", nullable: false),
-                    Availability = table.Column<DateTime>(type: "TEXT", nullable: false),
                     TripId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>

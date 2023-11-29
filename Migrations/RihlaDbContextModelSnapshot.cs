@@ -23,9 +23,6 @@ namespace TravelBookingApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Availability")
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("Capacity")
                         .HasColumnType("INTEGER");
 
@@ -36,29 +33,11 @@ namespace TravelBookingApp.Migrations
                     b.Property<double>("DailyRate")
                         .HasColumnType("REAL");
 
-                    b.Property<string>("Dropoff")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("DropoffTime")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Make")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Model")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Pickup")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("PickupTime")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

@@ -53,6 +53,27 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+    }
+
+    .background-container {
+        /* Set the background image and make it cover the entire viewport */
+        background-image: url('https://trendingtoday.in/wp-content/uploads/2020/12/Hyderabad-International-Airport.jpg'); /* Adjust the path accordingly */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        /* Set the container to full height of the viewport */
+        min-height: 100vh;
+        /* Optional: Add styles for text and other content on top of the background */
+        color: white;
+        -webkit-text-fill-color: Background;
+        text-align: center;
+        padding: 50px;
+    }
+</style>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

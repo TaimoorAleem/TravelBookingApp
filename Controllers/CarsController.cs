@@ -88,7 +88,7 @@ namespace TravelBookingApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CarId,Make,Model,Year,DailyRate,City,Pickup,Dropoff,DropoffTime,PickupTime,Capacity,Availability")] Car car)
+        public async Task<IActionResult> Edit(int id, [Bind("CarId,Make,Model,Year,DailyRate,City,Capacity")] Car car)
         {
             if (id != car.CarId)
             {
@@ -159,5 +159,22 @@ namespace TravelBookingApp.Controllers
         {
           return (_context.Cars?.Any(e => e.CarId == id)).GetValueOrDefault();
         }
+        [HttpGet]
+        public IActionResult BookingCar()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> BookingCar([Bind("Pickup,Dropoff,DropoffTime,PickupTime")] CarService carService)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(carService);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(carService);
+        }
+
     }
 }

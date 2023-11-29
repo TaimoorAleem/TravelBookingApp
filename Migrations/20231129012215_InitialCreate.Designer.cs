@@ -11,8 +11,13 @@ using TravelBookingApp.Models.Data_Access_Layer;
 namespace TravelBookingApp.Migrations
 {
     [DbContext(typeof(RihlaDbContext))]
+<<<<<<<< HEAD:Migrations/20231128230558_InitialMigration.Designer.cs
     [Migration("20231128230558_InitialMigration")]
     partial class InitialMigration
+========
+    [Migration("20231129012215_InitialCreate")]
+    partial class InitialCreate
+>>>>>>>> c203e873e5eedd8d1735fff94898390c63d4543b:Migrations/20231129012215_InitialCreate.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,9 +31,6 @@ namespace TravelBookingApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Availability")
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("Capacity")
                         .HasColumnType("INTEGER");
 
@@ -39,29 +41,11 @@ namespace TravelBookingApp.Migrations
                     b.Property<double>("DailyRate")
                         .HasColumnType("REAL");
 
-                    b.Property<string>("Dropoff")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("DropoffTime")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Make")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Model")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Pickup")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("PickupTime")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
