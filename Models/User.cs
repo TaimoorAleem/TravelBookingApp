@@ -1,11 +1,14 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.VisualBasic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TravelBookingApp.Models
 {
-    public class User
+    public class User : IdentityUser<int>
     {
+        // Enumeration to define two User types
         public enum UserType
         {
             Traveller,
@@ -13,7 +16,6 @@ namespace TravelBookingApp.Models
         }
 
         [Key]
-        [Required]
         public int UserID { get; set; }
 
         [Required(ErrorMessage = "Username is required.")]
@@ -37,5 +39,10 @@ namespace TravelBookingApp.Models
         [Required(ErrorMessage = "City is required.")]
         [StringLength(50, ErrorMessage = "Departure city must be at most 50 characters.")]
         public string City { get; set;}
+
+        public List<CarBooking> CarBookings { get; set; } = new List<CarBooking>();
+        public List<HotelBooking> HotelBookings { get; set; } = new List<HotelBooking>();
+        public List<FlightBooking> FlightBookings { get; set; } = new List<FlightBooking>();
+
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TravelBookingApp.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,7 +21,20 @@ namespace TravelBookingApp.Migrations
                     Email = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     Password = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     Type = table.Column<int>(type: "INTEGER", maxLength: 50, nullable: false),
-                    City = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false)
+                    City = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false),
+                    NormalizedUserName = table.Column<string>(type: "TEXT", nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "TEXT", nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    PasswordHash = table.Column<string>(type: "TEXT", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "TEXT", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -88,7 +101,7 @@ namespace TravelBookingApp.Migrations
                     DepartureCity = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     Destination = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     AirlineName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    AirlineCode = table.Column<string>(type: "TEXT", maxLength: 3, nullable: false),
+                    AirlineCode = table.Column<string>(type: "TEXT", maxLength: 6, nullable: false),
                     TripId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>

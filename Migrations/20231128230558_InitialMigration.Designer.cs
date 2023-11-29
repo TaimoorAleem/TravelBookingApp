@@ -11,8 +11,8 @@ using TravelBookingApp.Models.Data_Access_Layer;
 namespace TravelBookingApp.Migrations
 {
     [DbContext(typeof(RihlaDbContext))]
-    [Migration("20231128001306_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20231128230558_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -86,7 +86,7 @@ namespace TravelBookingApp.Migrations
 
                     b.Property<string>("AirlineCode")
                         .IsRequired()
-                        .HasMaxLength(3)
+                        .HasMaxLength(6)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("AirlineName")
@@ -164,9 +164,15 @@ namespace TravelBookingApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("City")
                         .IsRequired()
                         .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
@@ -174,10 +180,43 @@ namespace TravelBookingApp.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Type")
                         .HasMaxLength(50)
@@ -196,42 +235,42 @@ namespace TravelBookingApp.Migrations
             modelBuilder.Entity("TravelBookingApp.Models.Car", b =>
                 {
                     b.HasOne("TravelBookingApp.Models.Trip", null)
-                        .WithMany("CarRepository")
+                        .WithMany("Cars")
                         .HasForeignKey("TripId");
                 });
 
             modelBuilder.Entity("TravelBookingApp.Models.Flight", b =>
                 {
                     b.HasOne("TravelBookingApp.Models.Trip", null)
-                        .WithMany("FlightRepository")
+                        .WithMany("Flights")
                         .HasForeignKey("TripId");
                 });
 
             modelBuilder.Entity("TravelBookingApp.Models.Hotel", b =>
                 {
                     b.HasOne("TravelBookingApp.Models.Trip", null)
-                        .WithMany("HotelRepository")
+                        .WithMany("Hotels")
                         .HasForeignKey("TripId");
                 });
 
             modelBuilder.Entity("TravelBookingApp.Models.Trip", b =>
                 {
-                    b.HasOne("TravelBookingApp.Models.User", "Users")
+                    b.HasOne("TravelBookingApp.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Users");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TravelBookingApp.Models.Trip", b =>
                 {
-                    b.Navigation("CarRepository");
+                    b.Navigation("Cars");
 
-                    b.Navigation("FlightRepository");
+                    b.Navigation("Flights");
 
-                    b.Navigation("HotelRepository");
+                    b.Navigation("Hotels");
                 });
 #pragma warning restore 612, 618
         }
