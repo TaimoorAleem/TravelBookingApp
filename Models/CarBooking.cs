@@ -2,7 +2,7 @@
 
 namespace TravelBookingApp.Models
 {
-    public class CarService
+    public class CarBooking
     {
         [Key]
         public int Id { get; set; }
@@ -28,6 +28,6 @@ namespace TravelBookingApp.Models
         [DataType(DataType.DateTime)]
         public DateTime? DropoffTime { get; set; }
 
-        
+
     }
 }
