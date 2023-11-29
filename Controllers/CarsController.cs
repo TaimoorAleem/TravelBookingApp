@@ -88,7 +88,7 @@ namespace TravelBookingApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CarId,Make,Model,Year,DailyRate,City,Pickup,Dropoff,DropoffTime,PickupTime,Capacity,Availability")] Car car)
+        public async Task<IActionResult> Edit(int id, [Bind("CarId,Make,Model,Year,DailyRate,City,Capacity")] Car car)
         {
             if (id != car.CarId)
             {

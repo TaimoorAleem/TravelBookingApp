@@ -11,7 +11,7 @@ using TravelBookingApp.Models.Data_Access_Layer;
 namespace TravelBookingApp.Migrations
 {
     [DbContext(typeof(RihlaDbContext))]
-    [Migration("20231128001306_InitialCreate")]
+    [Migration("20231129012215_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -26,9 +26,6 @@ namespace TravelBookingApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Availability")
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("Capacity")
                         .HasColumnType("INTEGER");
 
@@ -39,29 +36,11 @@ namespace TravelBookingApp.Migrations
                     b.Property<double>("DailyRate")
                         .HasColumnType("REAL");
 
-                    b.Property<string>("Dropoff")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("DropoffTime")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Make")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Model")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Pickup")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("PickupTime")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -86,7 +65,7 @@ namespace TravelBookingApp.Migrations
 
                     b.Property<string>("AirlineCode")
                         .IsRequired()
-                        .HasMaxLength(3)
+                        .HasMaxLength(6)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("AirlineName")

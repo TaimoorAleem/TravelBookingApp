@@ -27,24 +27,11 @@
             <th>
                 @Html.DisplayNameFor(model => model.City)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Pickup)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Dropoff)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DropoffTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PickupTime)
-            </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.Capacity)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Availability)
-            </th>
+            
             <th></th>
         </tr>
     </thead>
@@ -66,24 +53,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.City)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pickup)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Dropoff)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DropoffTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PickupTime)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.Capacity)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Availability)
-            </td>
+            
             <td>
                 <a asp-action="Edit" asp-route-id="@item.CarId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.CarId">Details</a> |
