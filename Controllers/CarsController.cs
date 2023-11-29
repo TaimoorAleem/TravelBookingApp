@@ -159,5 +159,22 @@ namespace TravelBookingApp.Controllers
         {
           return (_context.Cars?.Any(e => e.CarId == id)).GetValueOrDefault();
         }
+        [HttpGet]
+        public IActionResult BookingCar()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> BookingCar([Bind("Pickup,Dropoff,DropoffTime,PickupTime")] CarService carService)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(carService);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(carService);
+        }
+
     }
 }
