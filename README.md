@@ -16,7 +16,7 @@ Welcome to the Rihla Travels App! Plan your trips with ease and book your flight
 
 ## Technologies Used
 
-- Frontend: HTML, CSS, JavaScript, React
+- Frontend: HTML, CSS, JavaScript, Bootstrap
 - Backend: ASP.NET Core, Entity Framework
 - Database: SQL Server
 
