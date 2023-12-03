@@ -6,6 +6,7 @@ namespace TravelBookingApp.Models
     public class Flight
     {
         // Properties
+        [Key]
         public int FlightId { get; set; }
 
         [Required(ErrorMessage = "Departure time is required.")]
