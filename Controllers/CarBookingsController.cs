@@ -48,7 +48,13 @@ namespace TravelBookingApp.Controllers
         // GET: CarBookings/Create
         public IActionResult Create()
         {
-            ViewBag.Cars = new SelectList(_context.Cars, "CarId", "Make");
+            List<Car> cars = _context.Cars.ToList();
+            ViewBag.Cars = cars.Select(car => new SelectListItem
+            {
+                Value = car.Id.ToString(),
+                Text = $"Make: {car.Make} | Model: {car.Model} | Year: {car.Year} | City: {car.City} | Capacity: {car.Capacity}"
+            }).ToList();
+
             return View();
         }
 
@@ -57,7 +63,7 @@ namespace TravelBookingApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Pickup,Dropoff,PickupTime,DropoffTime,CarId")] CarBooking carBooking)
+        public async Task<IActionResult> Create(CarBooking carBooking)
         {
             if (ModelState.IsValid)
             {
@@ -65,14 +71,36 @@ namespace TravelBookingApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.Cars = new SelectList(_context.Cars, "CarId", "Make", carBooking.CarId);
+            
+            foreach (var modelState in ModelState.Values)
+            {
+                foreach (var error in modelState.Errors)
+                {
+                    // Log or debug the error messages
+                    var errorMessage = error.ErrorMessage;
+                    var exception = error.Exception;
+
+                    // Add your logging mechanism here, for example, logging to the console
+                    Console.WriteLine($"ModelState Error: {errorMessage}");
+                }
+            }
+
+            // Repopulate the ViewBag.Cars with SelectList for the dropdown list
+            List<Car> cars = _context.Cars.ToList();
+            ViewBag.Cars = cars.Select(car => new SelectListItem
+            {
+                Value = car.Id.ToString(),
+                Text = $"Make: {car.Make} | Model: {car.Model} | Year: {car.Year} | City: {car.City} | Capacity: {car.Capacity}"
+            }).ToList();
+
             return View(carBooking);
         }
+
 
         // GET: CarBookings/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.CarBookings == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -82,15 +110,23 @@ namespace TravelBookingApp.Controllers
             {
                 return NotFound();
             }
+
+            // Include the cars for the dropdown list
+            List<Car> cars = _context.Cars.ToList();
+            ViewBag.Cars = cars.Select(car => new SelectListItem
+            {
+                Value = car.Id.ToString(),
+                Text = $"Make: {car.Make} - Model: {car.Model} - Year: {car.Year} - City: {car.City} - Capacity: {car.Capacity}",
+                Selected = car.Id == carBooking.CarId
+            }).ToList();
+
             return View(carBooking);
         }
 
         // POST: CarBookings/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Pickup,Dropoff,PickupTime,DropoffTime")] CarBooking carBooking)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CarId,Pickup,Dropoff,PickupTime,DropoffTime")] CarBooking carBooking)
         {
             if (id != carBooking.Id)
             {
@@ -103,6 +139,7 @@ namespace TravelBookingApp.Controllers
                 {
                     _context.Update(carBooking);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -115,10 +152,20 @@ namespace TravelBookingApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
+
+            // Include the cars for the dropdown list in case of validation errors
+            List<Car> cars = _context.Cars.ToList();
+            ViewBag.Cars = cars.Select(car => new SelectListItem
+            {
+                Value = car.Id.ToString(),
+                Text = $"Make: {car.Make} - Model: {car.Model} - Year: {car.Year} - City: {car.City} - Capacity: {car.Capacity}",
+                Selected = car.Id == carBooking.CarId
+            }).ToList();
+
             return View(carBooking);
         }
+
 
         // GET: CarBookings/Delete/5
         public async Task<IActionResult> Delete(int? id)

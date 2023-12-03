@@ -11,7 +11,7 @@ using TravelBookingApp.Models.Data_Access_Layer;
 namespace TravelBookingApp.Migrations
 {
     [DbContext(typeof(RihlaDbContext))]
-    [Migration("20231202022515_InitialMigration")]
+    [Migration("20231203053019_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -22,7 +22,7 @@ namespace TravelBookingApp.Migrations
 
             modelBuilder.Entity("TravelBookingApp.Models.Car", b =>
                 {
-                    b.Property<int>("CarId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -47,7 +47,7 @@ namespace TravelBookingApp.Migrations
                     b.Property<int>("Year")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("CarId");
+                    b.HasKey("Id");
 
                     b.ToTable("Cars");
                 });
@@ -141,17 +141,6 @@ namespace TravelBookingApp.Migrations
                     b.ToTable("FlightBookings");
                 });
 
-            modelBuilder.Entity("TravelBookingApp.Models.Hotel", b =>
-                {
-                    b.Property<int>("HotelId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("HotelId");
-
-                    b.ToTable("Hotels");
-                });
-
             modelBuilder.Entity("TravelBookingApp.Models.Passenger", b =>
                 {
                     b.Property<int>("PassengerId")
@@ -189,7 +178,7 @@ namespace TravelBookingApp.Migrations
             modelBuilder.Entity("TravelBookingApp.Models.CarBooking", b =>
                 {
                     b.HasOne("TravelBookingApp.Models.Car", "SelectedCar")
-                        .WithMany()
+                        .WithMany("CarBookings")
                         .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -213,6 +202,11 @@ namespace TravelBookingApp.Migrations
                     b.HasOne("TravelBookingApp.Models.FlightBooking", null)
                         .WithMany("Passengers")
                         .HasForeignKey("FlightBookingId");
+                });
+
+            modelBuilder.Entity("TravelBookingApp.Models.Car", b =>
+                {
+                    b.Navigation("CarBookings");
                 });
 
             modelBuilder.Entity("TravelBookingApp.Models.FlightBooking", b =>

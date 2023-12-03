@@ -1,21 +1,37 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using TravelBookingApp.Models;
+using TravelBookingApp.Models.Data_Access_Layer;
 
 namespace TravelBookingApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly RihlaDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(RihlaDbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
-            return View();
+            // Retrieve booking data from the database
+            // var flightBookings = _context.FlightBookings.ToList();
+            //var hotelBookings = _context.HotelBookings.ToList();
+            var carBookings = _context.CarBookings.ToList();
+
+            // Create instances of your view model and populate its properties
+            var viewModel = new BookingViewModel
+            {
+                // FlightBookings = flightBookings,
+                // HotelBookings = hotelBookings,
+                CarBookings = carBookings
+            };
+
+            // Pass the view model to the view
+            return View(viewModel);
         }
 
         public IActionResult Privacy()

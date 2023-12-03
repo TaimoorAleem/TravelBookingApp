@@ -8,7 +8,6 @@ namespace TravelBookingApp.Models
         [Key]
         public int Id { get; set; }
 
-        // Use List<int> to store selected car IDs
         public int CarId { get; set; }
 
         [ForeignKey("CarId")]

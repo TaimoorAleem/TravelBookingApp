@@ -15,7 +15,7 @@ namespace TravelBookingApp.Migrations
                 name: "Cars",
                 columns: table => new
                 {
-                    CarId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Make = table.Column<string>(type: "TEXT", nullable: false),
                     Model = table.Column<string>(type: "TEXT", nullable: false),
@@ -26,7 +26,7 @@ namespace TravelBookingApp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cars", x => x.CarId);
+                    table.PrimaryKey("PK_Cars", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -48,18 +48,6 @@ namespace TravelBookingApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Hotels",
-                columns: table => new
-                {
-                    HotelId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Hotels", x => x.HotelId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "CarBookings",
                 columns: table => new
                 {
@@ -78,7 +66,7 @@ namespace TravelBookingApp.Migrations
                         name: "FK_CarBookings_Cars_CarId",
                         column: x => x.CarId,
                         principalTable: "Cars",
-                        principalColumn: "CarId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -146,9 +134,6 @@ namespace TravelBookingApp.Migrations
         {
             migrationBuilder.DropTable(
                 name: "CarBookings");
-
-            migrationBuilder.DropTable(
-                name: "Hotels");
 
             migrationBuilder.DropTable(
                 name: "Passenger");

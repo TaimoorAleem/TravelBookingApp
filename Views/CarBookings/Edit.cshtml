@@ -9,35 +9,52 @@
 <h4>CarBooking</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+    <form asp-action="Edit" class="row">
+        <div class="col-md-6">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+
             <div class="form-group">
-                <label asp-for="Pickup" class="control-label"></label>
-                <input asp-for="Pickup" class="form-control" />
-                <span asp-validation-for="Pickup" class="text-danger"></span>
+                <label>Select a Car:</label>
+                @foreach (var car in ViewBag.Cars)
+                {
+                    <div>
+                        <input type="radio" id="@($"CarId_{car.Value}")" name="CarId" value="@car.Value" @(car.Selected ? "checked" : "") />
+                        <label for="@($"CarId_{car.Value}")">@car.Text</label>
+                    </div>
+                }
+                <span asp-validation-for="CarId" class="text-danger"></span>
             </div>
+        </div>
+
+        <div class="col-md-6">
             <div class="form-group">
-                <label asp-for="Dropoff" class="control-label"></label>
-                <input asp-for="Dropoff" class="form-control" />
-                <span asp-validation-for="Dropoff" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PickupTime" class="control-label"></label>
+                <label asp-for="PickupTime" class="control-label">Pickup Time:</label>
                 <input asp-for="PickupTime" class="form-control" />
                 <span asp-validation-for="PickupTime" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DropoffTime" class="control-label"></label>
+                <label asp-for="DropoffTime" class="control-label">Dropoff Time:</label>
                 <input asp-for="DropoffTime" class="form-control" />
                 <span asp-validation-for="DropoffTime" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Pickup" class="control-label">Pickup:</label>
+                <input asp-for="Pickup" class="form-control" />
+                <span asp-validation-for="Pickup" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dropoff" class="control-label">Dropoff:</label>
+                <input asp-for="Dropoff" class="form-control" />
+                <span asp-validation-for="Dropoff" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
-        </form>
-    </div>
+
+        </div>
+    </form>
 </div>
 
 <div>
