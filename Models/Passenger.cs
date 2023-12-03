@@ -1,7 +1,10 @@
-﻿namespace TravelBookingApp.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TravelBookingApp.Models
 {
     public class Passenger
     {
+        [Key]
         public int PassengerId { get; set; }
         public string? PassengerName { get; set; }
 
