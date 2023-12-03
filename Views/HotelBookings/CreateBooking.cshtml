@@ -1,0 +1,28 @@
+﻿@model TravelBookingApp.Models.HotelBooking
+
+@{
+    ViewData["Title"] = "Create Booking";
+}
+
+<h2>Create Booking for @Model.Hotel.Name</h2>
+
+<form asp-action="Create">
+    <input type="hidden" asp-for="HotelId" />
+    <div class="form-group">
+        <label asp-for="CheckInDate" class="control-label">Check-In Date</label>
+        <input asp-for="CheckInDate" class="form-control" type="date" />
+    </div>
+    <div class="form-group">
+        <label asp-for="CheckOutDate" class="control-label">Check-Out Date</label>
+        <input asp-for="CheckOutDate" class="form-control" type="date" />
+    </div>
+    <div class="form-group">
+        <label asp-for="NumberOfGuests" class="control-label">Number of Guests</label>
+        <input asp-for="NumberOfGuests" class="form-control" type="number" />
+    </div>
+    <div class="form-group">
+        <label asp-for="SpecialRequest" class="control-label">Special Requests</label>
+        <textarea asp-for="SpecialRequest" class="form-control"></textarea>
+    </div>
+    <input type="submit" value="Create Booking" class="btn btn-success" />
+</form>

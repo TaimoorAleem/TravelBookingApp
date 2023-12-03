@@ -1,0 +1,21 @@
+﻿@model IEnumerable<TravelBookingApp.Models.Hotel>
+
+@{
+    ViewData["Title"] = "Select Hotel";
+}
+
+<h2>Select a Hotel</h2>
+
+@foreach (var hotel in Model)
+{
+    <div style="border: 1px solid #ddd; margin-bottom: 20px; padding: 10px;">
+        <h3>@hotel.Name</h3>
+        @foreach (var imageUrl in hotel.ImageUrls)
+        {
+            <img src="@Url.Content($"~/images/{imageUrl}")" alt="Hotel Image" style="height: 100px; margin-right: 10px;" />
+        }
+        <p>@hotel.Description</p>
+        <p><strong>Rating:</strong> @hotel.Rating</p>
+        <a asp-action="CreateBooking" asp-route-hotelId="@hotel.HotelId" class="btn btn-primary">Book this Hotel</a>
+    </div>
+}

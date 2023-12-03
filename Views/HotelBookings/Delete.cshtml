@@ -1,0 +1,12 @@
+﻿@model TravelBookingApp.Models.HotelBooking
+
+<h2>Delete Booking</h2>
+
+<form asp-action="DeleteConfirmed">
+    <input type="hidden" asp-for="HotelBookingId" />
+    <p>Are you sure you want to delete this booking for @Model.Hotel.Name on @Model.CheckInDate.ToShortDateString()?</p>
+    <input type="submit" value="Delete" class="btn btn-danger" /> |
+    <a asp-action="Index">Cancel</a>
+</form>
+
+

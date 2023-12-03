@@ -1,0 +1,32 @@
+﻿@model IEnumerable<TravelBookingApp.Models.HotelBooking>
+
+<h2>Bookings</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Hotel Name</th>
+            <th>Check-In Date</th>
+            <th>Check-Out Date</th>
+            <th>Guests</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var booking in Model)
+        {
+            <tr>
+                <td>@booking.Hotel.Name</td>
+                <td>@booking.CheckInDate.ToShortDateString()</td>
+                <td>@booking.CheckOutDate.ToShortDateString()</td>
+                <td>@booking.NumberOfGuests</td>
+                <td>@booking.Price</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@booking.HotelBookingId">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@booking.HotelBookingId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

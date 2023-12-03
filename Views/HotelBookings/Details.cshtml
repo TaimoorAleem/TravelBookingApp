@@ -1,0 +1,14 @@
+﻿@model TravelBookingApp.Models.HotelBooking
+
+<h2>Booking Details</h2>
+
+<div>
+    <h4>@Model.Hotel.Name</h4>
+    <p>@Model.Hotel.Description</p>
+    <p>Check-In: @Model.CheckInDate.ToShortDateString()</p>
+    <p>Check-Out: @Model.CheckOutDate.ToShortDateString()</p>
+    <p>Guests: @Model.NumberOfGuests</p>
+    <p>Special Requests: @Model.SpecialRequest</p>
+    <p>Total Price: @Model.Price</p>
+    
+</div>
