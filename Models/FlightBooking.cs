@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TravelBookingApp.Models
 {
@@ -6,16 +7,18 @@ namespace TravelBookingApp.Models
     {
         [Key]
         public int FlightBookingId { get; set; }
-        public Flight Flight { get; set; }
-        public Category Fcategory {  get; set; } // Flight Category: International or domestic
+
+        [ForeignKey("FlightId")]
+        public virtual  Flight? Flight { get; set; }
+        public Category Fcategory { get; set; } // Flight Category: International or domestic
 
         public FClass FBookingClass { get; set; }// Flight Booking Class
 
-        public List<Passenger> Passengers { get; set; } // Added list for passengers
-        public FlightBooking()
+        public List<Passenger>? Passengers { get; set; } // Added list for passengers
+        /*public FlightBooking()
         {
             Passengers = new List<Passenger>();
-        }
+        }*/
 
         public enum FClass
         {

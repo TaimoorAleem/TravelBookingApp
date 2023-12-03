@@ -14,6 +14,16 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="FlightBookingId" />
             <div class="form-group">
+                <label asp-for="Fcategory" class="control-label"></label>
+                <select asp-for="Fcategory" class="form-control"></select>
+                <span asp-validation-for="Fcategory" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FBookingClass" class="control-label"></label>
+                <select asp-for="FBookingClass" class="form-control"></select>
+                <span asp-validation-for="FBookingClass" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>

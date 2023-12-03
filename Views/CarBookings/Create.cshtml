@@ -14,16 +14,24 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label>Select a Car:</label>
-                <select asp-for="CarId" class="form-control">
+                 @* <select asp-for="CarId" class="form-control">
                     @foreach (var car in ViewBag.Cars)
                     {
-                        @* <option value="@car.Value"> @car.Text</option> *@
-                        <div>
+                         <option value="@car.Value"> @car.Text</option> 
+                         <div>
                             <input type="radio" asp-for="CarId" value="@car.Value" />
                             @car.Text
-                        </div>
+                        </div> 
                     }
-                </select>
+                </select>  *@
+                @foreach (var car in ViewBag.Cars)
+                {
+                    @* <option value="@car.Value"> @car.Text</option> *@
+                    <div>
+                        <input type="radio" asp-for="CarId" value="@car.Value" />
+                        @car.Text
+                    </div>
+                }
                 
             </div>
             <div class="col-md-6">

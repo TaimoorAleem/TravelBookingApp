@@ -38,6 +38,8 @@ namespace TravelBookingApp.Models
         [Display(Name = "Airline Code")]
         public string AirlineCode { get; set; }
 
+        public virtual ICollection<FlightBooking> FlightBookings { get; set; }
+
         // Parameterless constructor for scaffolding
         public Flight()
         {
