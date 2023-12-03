@@ -11,8 +11,13 @@ using TravelBookingApp.Models.Data_Access_Layer;
 namespace TravelBookingApp.Migrations
 {
     [DbContext(typeof(RihlaDbContext))]
+<<<<<<<< HEAD:Migrations/20231203220837_InitialMigration.Designer.cs
     [Migration("20231203220837_InitialMigration")]
     partial class InitialMigration
+========
+    [Migration("20231203222232_IntialCreate")]
+    partial class IntialCreate
+>>>>>>>> 4207fca5f2640e0eaafa99b396b92b28c8f8daf2:Migrations/20231203222232_IntialCreate.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
