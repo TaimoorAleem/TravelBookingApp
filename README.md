@@ -1,4 +1,4 @@
-# Travel Booking App 🌍✈️🏨🚗
+# Rihla Travels Booking App 🌍✈️🏨🚗
 
 Welcome to the Rihla Travels App! Plan your trips with ease and book your flights, hotels, and cars hassle-free.
 
@@ -21,4 +21,4 @@ Welcome to the Rihla Travels App! Plan your trips with ease and book your flight
 - Database: SQL Server
 
 
-Happy Traveling! ✈️🌴
+Happy Traveling!!! ✈️🌴

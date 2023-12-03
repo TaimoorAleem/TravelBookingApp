@@ -10,6 +10,19 @@ namespace TravelBookingApp.Models
 
         public int CarId { get; set; }
 
+        [Required(ErrorMessage = "Please enter your name. It's required.")]
+        [DataType(DataType.Text)]
+        public string? Name { get; set; }
+
+        [Required(ErrorMessage = "Invalid email address")]
+        [DataType(DataType.EmailAddress)]
+        public string? Email { get; set; }
+
+        [Required(ErrorMessage = "Please enter your phone number. It's required.")]
+        [DataType(DataType.Password)]
+        public int? PhoneNo { get; set; }
+
+
         [ForeignKey("CarId")]
         public virtual Car SelectedCar { get; set; }
 
@@ -28,9 +41,7 @@ namespace TravelBookingApp.Models
         [DataType(DataType.DateTime)]
         public DateTime? PickupTime { get; set; }
 
-        [Required(ErrorMessage = "Please specify the pickup time. It's required.")]
-        [DataType(DataType.DateTime)]
-        public DateTime? DropoffTime { get; set; }
+      
 
 
     }

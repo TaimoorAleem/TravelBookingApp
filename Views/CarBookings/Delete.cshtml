@@ -12,6 +12,30 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PhoneNo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PhoneNo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SelectedCar)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SelectedCar.City)
+        </dd>
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Pickup)
         </dt>
         <dd class = "col-sm-10">
@@ -28,12 +52,6 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.PickupTime)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DropoffTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DropoffTime)
         </dd>
     </dl>
     

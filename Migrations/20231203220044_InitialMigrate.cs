@@ -6,7 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TravelBookingApp.Migrations
 {
     /// <inheritdoc />
+<<<<<<<< HEAD:Migrations/20231203220044_InitialMigrate.cs
     public partial class InitialMigrate : Migration
+========
+    public partial class InitialCreate : Migration
+>>>>>>>> c43ae3697f76a06469d0ffaaa25f6bf9d0f021f5:Migrations/20231203185749_InitialCreate.cs
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -54,10 +58,12 @@ namespace TravelBookingApp.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     CarId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Email = table.Column<string>(type: "TEXT", nullable: false),
+                    PhoneNo = table.Column<int>(type: "INTEGER", nullable: false),
                     Pickup = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     Dropoff = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    PickupTime = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    DropoffTime = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    PickupTime = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -52,7 +52,7 @@ namespace TravelBookingApp.Controllers
             ViewBag.Cars = cars.Select(car => new SelectListItem
             {
                 Value = car.Id.ToString(),
-                Text = $"Make: {car.Make} | Model: {car.Model} | Year: {car.Year} | City: {car.City} | Capacity: {car.Capacity}"
+                Text = $"{car.Make} \t {car.Model} \t {car.Year} , \n  City: {car.City} , \n Capacity: {car.Capacity}"
             }).ToList();
 
             return View();

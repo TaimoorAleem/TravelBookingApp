@@ -11,8 +11,13 @@ using TravelBookingApp.Models.Data_Access_Layer;
 namespace TravelBookingApp.Migrations
 {
     [DbContext(typeof(RihlaDbContext))]
+<<<<<<<< HEAD:Migrations/20231203220044_InitialMigrate.Designer.cs
     [Migration("20231203220044_InitialMigrate")]
     partial class InitialMigrate
+========
+    [Migration("20231203185749_InitialCreate")]
+    partial class InitialCreate
+>>>>>>>> c43ae3697f76a06469d0ffaaa25f6bf9d0f021f5:Migrations/20231203185749_InitialCreate.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,9 +71,17 @@ namespace TravelBookingApp.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("DropoffTime")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("PhoneNo")
+                        .IsRequired()
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Pickup")
                         .IsRequired()
