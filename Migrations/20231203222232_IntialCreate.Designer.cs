@@ -11,13 +11,8 @@ using TravelBookingApp.Models.Data_Access_Layer;
 namespace TravelBookingApp.Migrations
 {
     [DbContext(typeof(RihlaDbContext))]
-<<<<<<<< HEAD:Migrations/20231203220044_InitialMigrate.Designer.cs
-    [Migration("20231203220044_InitialMigrate")]
-    partial class InitialMigrate
-========
-    [Migration("20231203185749_InitialCreate")]
-    partial class InitialCreate
->>>>>>>> c43ae3697f76a06469d0ffaaa25f6bf9d0f021f5:Migrations/20231203185749_InitialCreate.Designer.cs
+    [Migration("20231203222232_IntialCreate")]
+    partial class IntialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -199,7 +194,7 @@ namespace TravelBookingApp.Migrations
             modelBuilder.Entity("TravelBookingApp.Models.CarBooking", b =>
                 {
                     b.HasOne("TravelBookingApp.Models.Car", "SelectedCar")
-                        .WithMany("CarBookings")
+                        .WithMany()
                         .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -227,11 +222,6 @@ namespace TravelBookingApp.Migrations
                         .IsRequired();
 
                     b.Navigation("FlightBooking");
-                });
-
-            modelBuilder.Entity("TravelBookingApp.Models.Car", b =>
-                {
-                    b.Navigation("CarBookings");
                 });
 
             modelBuilder.Entity("TravelBookingApp.Models.Flight", b =>

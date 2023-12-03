@@ -6,11 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TravelBookingApp.Migrations
 {
     /// <inheritdoc />
-<<<<<<<< HEAD:Migrations/20231203220044_InitialMigrate.cs
-    public partial class InitialMigrate : Migration
-========
-    public partial class InitialCreate : Migration
->>>>>>>> c43ae3697f76a06469d0ffaaa25f6bf9d0f021f5:Migrations/20231203185749_InitialCreate.cs
+    public partial class IntialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

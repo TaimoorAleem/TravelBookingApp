@@ -65,12 +65,11 @@ namespace TravelBookingApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CarBooking carBooking)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(carBooking);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
+            
+            _context.Add(carBooking);
+            await _context.SaveChangesAsync();
+            
+            
             
             foreach (var modelState in ModelState.Values)
             {
@@ -84,6 +83,7 @@ namespace TravelBookingApp.Controllers
                     Console.WriteLine($"ModelState Error: {errorMessage}");
                 }
             }
+            return RedirectToAction("Index","Home");
 
             // Repopulate the ViewBag.Cars with SelectList for the dropdown list
             List<Car> cars = _context.Cars.ToList();
