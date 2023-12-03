@@ -17,8 +17,11 @@
                 <select asp-for="CarId" class="form-control">
                     @foreach (var car in ViewBag.Cars)
                     {
-                        <option value="@car.Value"> @car.Text</option>
-                        
+                        @* <option value="@car.Value"> @car.Text</option> *@
+                        <div>
+                            <input type="radio" asp-for="CarId" value="@car.Value" />
+                            @car.Text
+                        </div>
                     }
                 </select>
                 
@@ -53,7 +56,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="PickupTime" class="control-label"></label>
-                    <input asp-for="PickupTime" class="form-control" />
+                    <input asp-for="PickupTime" class="form-control datatimepicker" />
                     <span asp-validation-for="PickupTime" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -65,7 +68,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
 
 @section Scripts {

@@ -6,7 +6,7 @@ namespace TravelBookingApp.Models
     {
         //Adding the properties of Car
         [Key]
-        public int CarId { get; set; }
+        public int Id { get; set; }
 
 
         [Required(ErrorMessage = "Please select a make.")]
@@ -34,7 +34,7 @@ namespace TravelBookingApp.Models
         
 
         public int Capacity { get; set; }
-        public object Id { get; internal set; }
+        
     }
 
 }
