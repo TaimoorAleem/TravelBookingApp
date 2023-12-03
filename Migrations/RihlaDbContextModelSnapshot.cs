@@ -191,7 +191,7 @@ namespace TravelBookingApp.Migrations
             modelBuilder.Entity("TravelBookingApp.Models.CarBooking", b =>
                 {
                     b.HasOne("TravelBookingApp.Models.Car", "SelectedCar")
-                        .WithMany("CarBookings")
+                        .WithMany()
                         .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -219,11 +219,6 @@ namespace TravelBookingApp.Migrations
                         .IsRequired();
 
                     b.Navigation("FlightBooking");
-                });
-
-            modelBuilder.Entity("TravelBookingApp.Models.Car", b =>
-                {
-                    b.Navigation("CarBookings");
                 });
 
             modelBuilder.Entity("TravelBookingApp.Models.Flight", b =>
