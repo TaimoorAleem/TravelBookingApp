@@ -90,7 +90,7 @@ namespace TravelBookingApp.Controllers
             ViewBag.Cars = cars.Select(car => new SelectListItem
             {
                 Value = car.Id.ToString(),
-                Text = $"Make: {car.Make} | Model: {car.Model} | Year: {car.Year} | City: {car.City} | Capacity: {car.Capacity}"
+                Text = $"Make: {car.Make} | Model: {car.Model} | Year: {car.Year} | City: {car.City} | Capacity: {car.Capacity}, Price: ${car.DailyRate}"
             }).ToList();
 
             return View(carBooking);
@@ -116,7 +116,7 @@ namespace TravelBookingApp.Controllers
             ViewBag.Cars = cars.Select(car => new SelectListItem
             {
                 Value = car.Id.ToString(),
-                Text = $"Make: {car.Make} - Model: {car.Model} - Year: {car.Year} - City: {car.City} - Capacity: {car.Capacity}",
+                Text = $"Make: {car.Make} - Model: {car.Model} - Year: {car.Year} - City: {car.City} - Capacity: {car.Capacity} , Price: ${car.DailyRate}",
                 Selected = car.Id == carBooking.CarId
             }).ToList();
 
@@ -126,7 +126,7 @@ namespace TravelBookingApp.Controllers
         // POST: CarBookings/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CarId,Pickup,Dropoff,PickupTime,DropoffTime")] CarBooking carBooking)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CarId,Name,Email,PhoneNo,Pickup,Dropoff,PickupTime")] CarBooking carBooking)
         {
             if (id != carBooking.Id)
             {
@@ -159,7 +159,7 @@ namespace TravelBookingApp.Controllers
             ViewBag.Cars = cars.Select(car => new SelectListItem
             {
                 Value = car.Id.ToString(),
-                Text = $"Make: {car.Make} - Model: {car.Model} - Year: {car.Year} - City: {car.City} - Capacity: {car.Capacity}",
+                Text = $"Make: {car.Make} - Model: {car.Model} - Year: {car.Year} - City: {car.City} - Capacity: {car.Capacity}, Price: ${car.DailyRate}",
                 Selected = car.Id == carBooking.CarId
             }).ToList();
 

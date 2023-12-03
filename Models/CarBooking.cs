@@ -19,7 +19,7 @@ namespace TravelBookingApp.Models
         public string? Email { get; set; }
 
         [Required(ErrorMessage = "Please enter your phone number. It's required.")]
-        [DataType(DataType.Password)]
+        [DataType(DataType.PhoneNumber)]
         public int? PhoneNo { get; set; }
 
 
