@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TravelBookingApp.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class InitialMigrate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -74,43 +74,45 @@ namespace TravelBookingApp.Migrations
                 name: "FlightBookings",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    FlightId = table.Column<int>(type: "INTEGER", nullable: false)
+                    FlightBookingId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Fcategory = table.Column<int>(type: "INTEGER", nullable: false),
+                    FBookingClass = table.Column<int>(type: "INTEGER", nullable: false),
+                    FlightId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FlightBookings", x => x.Id);
+                    table.PrimaryKey("PK_FlightBookings", x => x.FlightBookingId);
                     table.ForeignKey(
-                        name: "FK_FlightBookings_Flights_FlightId",
-                        column: x => x.FlightId,
+                        name: "FK_FlightBookings_Flights_FlightBookingId",
+                        column: x => x.FlightBookingId,
                         principalTable: "Flights",
                         principalColumn: "FlightId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Passenger",
+                name: "Passengers",
                 columns: table => new
                 {
                     PassengerId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    PassengerName = table.Column<string>(type: "TEXT", nullable: true),
-                    PassportNo = table.Column<string>(type: "TEXT", nullable: true),
+                    PassengerName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    PassportNo = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
                     PassengerAge = table.Column<int>(type: "INTEGER", nullable: false),
+                    FlightBookingId = table.Column<int>(type: "INTEGER", nullable: false),
                     PassengerGender = table.Column<int>(type: "INTEGER", nullable: false),
                     SeatPreference = table.Column<int>(type: "INTEGER", nullable: false),
-                    PassengerStatus = table.Column<string>(type: "TEXT", nullable: true),
-                    FlightBookingId = table.Column<int>(type: "INTEGER", nullable: true)
+                    PassengerStatus = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Passenger", x => x.PassengerId);
+                    table.PrimaryKey("PK_Passengers", x => x.PassengerId);
                     table.ForeignKey(
-                        name: "FK_Passenger_FlightBookings_FlightBookingId",
+                        name: "FK_Passengers_FlightBookings_FlightBookingId",
                         column: x => x.FlightBookingId,
                         principalTable: "FlightBookings",
-                        principalColumn: "Id");
+                        principalColumn: "FlightBookingId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -119,13 +121,8 @@ namespace TravelBookingApp.Migrations
                 column: "CarId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FlightBookings_FlightId",
-                table: "FlightBookings",
-                column: "FlightId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Passenger_FlightBookingId",
-                table: "Passenger",
+                name: "IX_Passengers_FlightBookingId",
+                table: "Passengers",
                 column: "FlightBookingId");
         }
 
@@ -136,7 +133,7 @@ namespace TravelBookingApp.Migrations
                 name: "CarBookings");
 
             migrationBuilder.DropTable(
-                name: "Passenger");
+                name: "Passengers");
 
             migrationBuilder.DropTable(
                 name: "Cars");

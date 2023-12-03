@@ -1,95 +1,65 @@
-﻿@model IEnumerable<Flight>
+﻿@model IEnumerable<TravelBookingApp.Models.Flight>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<div class="background-container">
-    <h1>Index</h1>
+<h1>Index</h1>
 
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.AirlineName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.AirlineCode)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DepartureTime)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ArrivalTime)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DepartureCity)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Destination)
-                </th>
-                
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DepartureTime)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ArrivalTime)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DepartureCity)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Destination)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AirlineName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AirlineCode)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.FlightId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.FlightId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.FlightId">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
-</div>
-<style>
-    body, html {
-        height: 100%;
-        margin: 0;
-    }
-
-    .background-container {
-        /* Set the background image and make it cover the entire viewport */
-        background-image: url('https://trendingtoday.in/wp-content/uploads/2020/12/Hyderabad-International-Airport.jpg'); /* Adjust the path accordingly */
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        /* Set the container to full height of the viewport */
-        min-height: 100vh;
-        /* Optional: Add styles for text and other content on top of the background */
-        color: white;
-        -webkit-text-fill-color: Background;
-        text-align: center;
-        padding: 50px;
-    }
-</style>
-
-
-
-
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartureTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArrivalTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartureCity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Destination)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AirlineName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AirlineCode)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartureTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArrivalTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartureCity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Destination)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AirlineName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AirlineCode)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.FlightId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.FlightId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.FlightId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

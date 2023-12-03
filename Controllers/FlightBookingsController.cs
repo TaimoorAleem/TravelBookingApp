@@ -22,9 +22,8 @@ namespace TravelBookingApp.Controllers
         // GET: FlightBookings
         public async Task<IActionResult> Index()
         {
-              return _context.FlightBookings != null ? 
-                          View(await _context.FlightBookings.ToListAsync()) :
-                          Problem("Entity set 'RihlaDbContext.FlightBookings'  is null.");
+            var rihlaDbContext = _context.FlightBookings.Include(f => f.Flight);
+            return View(await rihlaDbContext.ToListAsync());
         }
 
         // GET: FlightBookings/Details/5
@@ -36,7 +35,8 @@ namespace TravelBookingApp.Controllers
             }
 
             var flightBooking = await _context.FlightBookings
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(f => f.Flight)
+                .FirstOrDefaultAsync(m => m.FlightBookingId == id);
             if (flightBooking == null)
             {
                 return NotFound();
@@ -48,6 +48,7 @@ namespace TravelBookingApp.Controllers
         // GET: FlightBookings/Create
         public IActionResult Create()
         {
+            ViewData["FlightBookingId"] = new SelectList(_context.Flights, "FlightId", "AirlineCode");
             return View();
         }
 
@@ -56,7 +57,7 @@ namespace TravelBookingApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id")] FlightBooking flightBooking)
+        public async Task<IActionResult> Create([Bind("FlightBookingId,Fcategory,FBookingClass")] FlightBooking flightBooking)
         {
             if (ModelState.IsValid)
             {
@@ -64,6 +65,7 @@ namespace TravelBookingApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["FlightBookingId"] = new SelectList(_context.Flights, "FlightId", "AirlineCode", flightBooking.FlightBookingId);
             return View(flightBooking);
         }
 
@@ -80,6 +82,7 @@ namespace TravelBookingApp.Controllers
             {
                 return NotFound();
             }
+            ViewData["FlightBookingId"] = new SelectList(_context.Flights, "FlightId", "AirlineCode", flightBooking.FlightBookingId);
             return View(flightBooking);
         }
 
@@ -88,9 +91,9 @@ namespace TravelBookingApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id")] FlightBooking flightBooking)
+        public async Task<IActionResult> Edit(int id, [Bind("FlightBookingId,Fcategory,FBookingClass")] FlightBooking flightBooking)
         {
-            if (id != flightBooking.Id)
+            if (id != flightBooking.FlightBookingId)
             {
                 return NotFound();
             }
@@ -104,7 +107,7 @@ namespace TravelBookingApp.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!FlightBookingExists(flightBooking.Id))
+                    if (!FlightBookingExists(flightBooking.FlightBookingId))
                     {
                         return NotFound();
                     }
@@ -115,6 +118,7 @@ namespace TravelBookingApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["FlightBookingId"] = new SelectList(_context.Flights, "FlightId", "AirlineCode", flightBooking.FlightBookingId);
             return View(flightBooking);
         }
 
@@ -127,7 +131,8 @@ namespace TravelBookingApp.Controllers
             }
 
             var flightBooking = await _context.FlightBookings
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(f => f.Flight)
+                .FirstOrDefaultAsync(m => m.FlightBookingId == id);
             if (flightBooking == null)
             {
                 return NotFound();
@@ -157,7 +162,7 @@ namespace TravelBookingApp.Controllers
 
         private bool FlightBookingExists(int id)
         {
-          return (_context.FlightBookings?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.FlightBookings?.Any(e => e.FlightBookingId == id)).GetValueOrDefault();
         }
     }
 }

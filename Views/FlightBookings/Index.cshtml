@@ -12,6 +12,15 @@
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Flight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fcategory)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FBookingClass)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -19,9 +28,18 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                @Html.DisplayFor(modelItem => item.Flight.AirlineCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fcategory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FBookingClass)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.FlightBookingId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.FlightBookingId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.FlightBookingId">Delete</a>
             </td>
         </tr>
 }
