@@ -36,7 +36,7 @@ namespace TravelBookingApp.Controllers
             }
 
             var flightBooking = await _context.FlightBookings
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.FlightBookingId == id);
             if (flightBooking == null)
             {
                 return NotFound();
@@ -90,7 +90,7 @@ namespace TravelBookingApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id")] FlightBooking flightBooking)
         {
-            if (id != flightBooking.Id)
+            if (id != flightBooking.FlightBookingId)
             {
                 return NotFound();
             }
@@ -104,7 +104,7 @@ namespace TravelBookingApp.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!FlightBookingExists(flightBooking.Id))
+                    if (!FlightBookingExists(flightBooking.FlightBookingId))
                     {
                         return NotFound();
                     }
@@ -127,7 +127,7 @@ namespace TravelBookingApp.Controllers
             }
 
             var flightBooking = await _context.FlightBookings
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.FlightBookingId == id);
             if (flightBooking == null)
             {
                 return NotFound();
@@ -157,7 +157,7 @@ namespace TravelBookingApp.Controllers
 
         private bool FlightBookingExists(int id)
         {
-          return (_context.FlightBookings?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.FlightBookings?.Any(e => e.FlightBookingId == id)).GetValueOrDefault();
         }
     }
 }
