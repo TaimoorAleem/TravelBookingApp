@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+
+
 html {
   font-size: 14px;
 }
@@ -17,6 +20,18 @@ html {
   min-height: 100%;
 }
 
+body, h1, h2, h3, h4, h5{
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    background-color: darkgreen;
+    color: white;
+
+}
+
+h5 {
+    font-weight: 400;
+}
+
 body {
-  margin-bottom: 60px;
+    font-weight: 300;
 }

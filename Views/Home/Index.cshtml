@@ -6,10 +6,14 @@
 
 <div class="container-fluid">
     <div class="row">
+        <h5>Welcome to</h5>
+        <h1>Rihla Travels </h1>
+    </div>
+    <div class="row">
         <div class="col-md-4">
             <div class="card">
-                <div class="card-header">
-                    <h2>Flight Bookings</h2>
+                <div class="card-header text-center">
+                    <h4>Flight Bookings</h4>
                 </div>
                 <div class="card-body">
                     @if (Model.FlightBookings != null && Model.FlightBookings.Any())
@@ -32,8 +36,8 @@
         </div>
         <div class="col-md-4">
             <div class="card">
-                <div class="card-header">
-                    <h2>Hotel Bookings</h2>
+                <div class="card-header text-center">
+                    <h4>Hotel Bookings</h4>
                 </div>
                 <div class="card-body">
                     @if (Model.HotelBookings != null && Model.HotelBookings.Any())
@@ -56,8 +60,8 @@
         </div>
         <div class="col-md-4">
             <div class="card">
-                <div class="card-header">
-                    <h2>Car Bookings</h2>
+                <div class="card-header text-center">
+                    <h4>Car Bookings</h4>
                 </div>
                 <div class="card-body">
                     @if (Model.CarBookings != null && Model.CarBookings.Any())
