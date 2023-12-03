@@ -1,4 +1,4 @@
-﻿@model TravelBookingApp.Models.CarBooking
+﻿@model IEnumerable<TravelBookingApp.Models.CarBooking>
 
 @{
     ViewData["Title"] = "Details";
@@ -6,37 +6,66 @@
 
 <h1>Details</h1>
 
-<div>
-    <h4>CarBooking</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Pickup)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Pickup)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Dropoff)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Dropoff)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PickupTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PickupTime)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DropoffTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DropoffTime)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SelectedCar)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pickup)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dropoff)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PickupTime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SelectedCar.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pickup)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dropoff)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PickupTime)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

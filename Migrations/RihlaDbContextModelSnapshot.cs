@@ -63,9 +63,17 @@ namespace TravelBookingApp.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("DropoffTime")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("PhoneNo")
+                        .IsRequired()
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Pickup")
                         .IsRequired()
