@@ -9,39 +9,41 @@
 <h4>FlightBooking</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
+    <form asp-action="Create" class="row">
+        <div class="col-md-6">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
+            <div class="form-group">
+                <label>Select a Flight:</label>
+                <select asp-for="FlightBookingId" class="form-control" asp-items="@(ViewData["Flights"] as List<SelectListItem>)"></select>
+            </div>
+        </div>
+        <div class="col-md-6">
             <div class="form-group">
                 <label asp-for="Fcategory" class="control-label"></label>
                 <select asp-for="Fcategory" class="form-control">
-                    @foreach (var category in Enum.GetValues(typeof(TravelBookingApp.Models.FlightBooking.Category)))
-                    {
-                        <option value="@category">@category</option>
-                    }
+                    <option value="Domestic">Domestic</option>
+                    <option value="International">International</option>
                 </select>
                 <span asp-validation-for="Fcategory" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FBookingClass" class="control-label"></label>
                 <select asp-for="FBookingClass" class="form-control">
-                    @foreach (var fClass in Enum.GetValues(typeof(TravelBookingApp.Models.FlightBooking.FClass)))
-                    {
-                        <option value="@fClass">@fClass</option>
-                    }
+                    <option value="Economy">Economy</option>
+                    <option value="Business">Business</option>
+                    <option value="FirstClass">First Class</option>
                 </select>
                 <span asp-validation-for="FBookingClass" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Back to Home</a>
 </div>
 
 @section Scripts {

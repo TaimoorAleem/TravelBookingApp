@@ -55,7 +55,5 @@ namespace TravelBookingApp.Models
             AirlineName = airlineName;
             AirlineCode = airlineCode;
         }
-
-        // Additional methods or validations can be added here
     }
 }

@@ -48,9 +48,17 @@ namespace TravelBookingApp.Controllers
         // GET: FlightBookings/Create
         public IActionResult Create()
         {
-            ViewData["FlightBookingId"] = new SelectList(_context.Flights, "FlightId", "AirlineCode");
+            List<Flight> flights = _context.Flights.ToList();
+
+            ViewData["Flights"] = flights.Select(flight => new SelectListItem
+            {
+                Value = flight.FlightId.ToString(),
+                Text = $"{flight.AirlineCode}  {flight.DepartureCity} to {flight.Destination}"
+            }).ToList();
+
             return View();
         }
+
 
         // POST: FlightBookings/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -63,7 +71,7 @@ namespace TravelBookingApp.Controllers
             {
                 _context.Add(flightBooking);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             ViewData["FlightBookingId"] = new SelectList(_context.Flights, "FlightId", "AirlineCode", flightBooking.FlightBookingId);
             return View(flightBooking);

@@ -9,32 +9,32 @@
     <link rel="stylesheet" href="~/TravelBookingApp.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
+    <header class="border-bottom">
         <nav class="navbar navbar-expand-lg bg-body-tertiary mx-5">
             <div class="container-fluid">
-                <a class="navbar-brand text-white" href="#">Rihla Travels</a>
+                <a class="navbar-brand text-white" asp-controller="Home" asp-action="Index">Rihla Travels</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active text-white" aria-current="page" asp-controller="Home" asp-action="About">About Us</a>
+                            <a class="nav-link text-white" aria-current="page" asp-controller="Home" asp-action="About">About Us</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3 px-5 mx-3">
+    <div class="container pb-5">
+        <main role="main" class="pb-5 px-5 mx-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted mt-5">
         <div class="container text-white text-center">
-            &copy; 2023 - Rihla Travels - <a asp-area="" asp-controller="Home" asp-action="About">About Us</a>
+            &copy; 2023 - Rihla Travels - <a asp-controller="Home" asp-action="About">About Us</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
