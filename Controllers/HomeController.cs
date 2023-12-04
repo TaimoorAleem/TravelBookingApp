@@ -18,8 +18,8 @@ namespace TravelBookingApp.Controllers
         public IActionResult Index()
         {
             // Retrieve booking data from the database
-            // var flightBookings = _context.FlightBookings.ToList();
-            //var hotelBookings = _context.HotelBookings.ToList();
+            var flightBookings = _context.FlightBookings.ToList();
+            var hotelBookings = _context.HotelBookings.ToList();
             var carBookings = _context.CarBookings.ToList();
 
             // Create instances of your view model and populate its properties
