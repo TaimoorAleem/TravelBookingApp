@@ -1,37 +1,49 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Junge&family=Roboto:wght@300;400;500&display=swap');
 
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
-body, h1, h2, h3, h4, h5{
+body, h1, h2, h3, h4, h5 {
     font-family: 'Roboto', sans-serif;
     margin: 0;
-    background-color: darkgreen;
+    background-color: #003241;
     color: white;
-
 }
 
 h5 {
-    font-weight: 400;
+    font-weight: 300;
 }
 
 body {
     font-weight: 300;
+}
+
+.home-title {
+    font-family: 'Junge', sans-serif;
+    font-size: 64px;
+}
+
+home-subtitle {
+    font-size: 12px;
+}
+
+.card {
+    background-color: #003241;
+    border: 2px solid white;
 }

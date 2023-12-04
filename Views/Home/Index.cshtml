@@ -5,24 +5,24 @@
 }
 
 <div class="container-fluid">
-    <div class="row">
-        <h5>Welcome to</h5>
-        <h1>Rihla Travels </h1>
+    <div class="row py-5 text-center">
+        <h5 class="home-subtitle mb-2">Welcome to </h5>
+        <h1 class="home-title">Rihla Travels </h1>
     </div>
-    <div class="row">
+    <div class="row py-5">
+        <!-- Flight Bookings -->
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header text-center">
                     <h4>Flight Bookings</h4>
                 </div>
                 <div class="card-body">
-                    @if (Model.FlightBookings != null && Model.FlightBookings.Any())
+                    @if (Model.FlightBookings != null && Model.FlightBookings.Count > 0)
                     {
                         var index = 1;
                         foreach (var booking in Model.FlightBookings)
                         {
                             <p>Booking # @index</p>
-                            <!-- Additional flight booking details here -->
                             index++;
                         }
                     }
@@ -31,22 +31,23 @@
                         <p>You have no flight bookings.</p>
                     }
                 </div>
-                <a asp-controller="FlightBookings" asp-action="Create" class="btn btn-outline-primary">Create Booking</a>
+                <a asp-controller="FlightBookings" asp-action="Create" class="btn btn-outline-light">Create Booking</a>
             </div>
         </div>
+
+        <!-- Hotel Bookings -->
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header text-center">
                     <h4>Hotel Bookings</h4>
                 </div>
                 <div class="card-body">
-                    @if (Model.HotelBookings != null && Model.HotelBookings.Any())
+                    @if (Model.HotelBookings != null && Model.HotelBookings.Count > 0)
                     {
                         var index = 1;
                         foreach (var booking in Model.HotelBookings)
                         {
                             <p>Booking # @index</p>
-                            <!-- Additional hotel booking details here -->
                             index++;
                         }
                     }
@@ -55,23 +56,24 @@
                         <p>You have no hotel bookings.</p>
                     }
                 </div>
-                <a asp-controller="HotelBookings" asp-action="Create" class="btn btn-outline-primary">Create Booking</a>
+                <a asp-controller="HotelBookings" asp-action="Create" class="btn btn-outline-light">Create Booking</a>
             </div>
         </div>
+
+        <!-- Car Bookings -->
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header text-center">
                     <h4>Car Bookings</h4>
                 </div>
                 <div class="card-body">
-                    @if (Model.CarBookings != null && Model.CarBookings.Any())
+                    @if (Model.CarBookings != null && Model.CarBookings.Count > 0)
                     {
                         var index = 1;
                         foreach (var booking in Model.CarBookings)
                         {
                             <p>Booking # @index</p>
                             //<p>Make: @booking.SelectedCar.Make</p>
-                            <!-- Additional car booking details here -->
                             index++;
                         }
                     }
@@ -80,7 +82,7 @@
                         <p>You have no car bookings.</p>
                     }
                 </div>
-                <a asp-controller="CarBookings" asp-action="Create" class="btn btn-outline-primary">Create Booking</a>
+                <a asp-controller="CarBookings" asp-action="Create" class="btn btn-outline-light">Create Booking</a>
             </div>
         </div>
     </div>
