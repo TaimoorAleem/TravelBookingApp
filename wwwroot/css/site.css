@@ -47,3 +47,7 @@ home-subtitle {
     background-color: #003241;
     border: 2px solid white;
 }
+
+.about-page p, li{
+    font-size: 24px;
+}
