@@ -10,19 +10,21 @@
         <h1 class="home-title">Rihla Travels </h1>
     </div>
     <div class="row py-5">
-        <!-- Flight Bookings -->
+        <!-- Flight Bookings Card -->
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header text-center">
                     <h4>Flight Bookings</h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="max-height: 200px; overflow-y: auto;">
                     @if (Model.FlightBookings != null && Model.FlightBookings.Count > 0)
                     {
                         var index = 1;
                         foreach (var booking in Model.FlightBookings)
                         {
-                            <p>Booking # @index</p>
+                            <a asp-controller="FlightBookings" asp-action="Details" asp-route-id="@booking.FlightBookingId">Booking # @index</a>
+
+                            <br />
                             index++;
                         }
                     }
@@ -35,19 +37,21 @@
             </div>
         </div>
 
-        <!-- Hotel Bookings -->
+        <!-- Hotel Bookings Card -->
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header text-center">
                     <h4>Hotel Bookings</h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="max-height: 200px; overflow-y: auto;">
                     @if (Model.HotelBookings != null && Model.HotelBookings.Count > 0)
                     {
                         var index = 1;
                         foreach (var booking in Model.HotelBookings)
                         {
-                            <p>Booking # @index</p>
+                            <a asp-controller="HotelBookings" asp-action="Details" asp-route-id="@booking.Id">Booking # @index</a>
+
+                            <br />
                             index++;
                         }
                     }
@@ -60,22 +64,24 @@
             </div>
         </div>
 
-        <!-- Car Bookings -->
+        <!-- Car Bookings Card -->
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header text-center">
                     <h4>Car Bookings</h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="max-height: 200px; overflow-y: auto;">
                     @if (Model.CarBookings != null && Model.CarBookings.Count > 0)
                     {
                         var index = 1;
                         foreach (var booking in Model.CarBookings)
                         {
-                            <p>Booking # @index</p>
-                            //<p>Make: @booking.SelectedCar.Make</p>
+                            <a asp-controller="CarBookings" asp-action="Details" asp-route-id="@booking.Id">Booking # @index</a>
+
+                            <br />
                             index++;
                         }
+                        
                     }
                     else
                     {
