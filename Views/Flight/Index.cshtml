@@ -1,0 +1,30 @@
+﻿@model List<TravelBookingApp.Models.Flight>
+
+<h2>Available Flights</h2>
+
+@if (Model.Any())
+{
+    foreach (var flight in Model)
+    {
+        <div>
+            <h4>Flight Details</h4>
+            <p>Flight Name: @flight.FlightName</p>
+            <p>Flight Code: @flight.FlightCode</p>
+            <p>Departure Location: @flight.DepartureLocation</p>
+            <p>Arrival Location: @flight.ArrivalLocation</p>
+            <p>Departure Date and Time: @flight.DepartureDateTime.ToString("yyyy-MM-dd HH:mm:ss")</p>
+            <p>Arrival Date and Time: @flight.ArrivalDateTime.ToString("yyyy-MM-dd HH:mm:ss")</p>
+            <p>Flight Type: @flight.FlightType</p>
+            <p>Price: @flight.Price</p>
+
+           
+
+            <a asp-controller="Passenger" asp-action="Create" asp-route-flightId="@flight.Id">Book</a>
+        </div>
+        <hr />
+    }
+}
+else
+{
+    <p>No matching flights found.</p>
+}
