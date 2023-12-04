@@ -1,61 +1,75 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace TravelBookingApp.Models
 {
     public class Flight
     {
-        // Properties
-        [Key]
-        public int FlightId { get; set; }
+        public int Id { get; set; }
 
-        [Required(ErrorMessage = "Departure time is required.")]
+        [Required(ErrorMessage = "Flight name is required.")]
+        public string? FlightName { get; set; }
+
+        [Required(ErrorMessage = "Flight code is required.")]
+        public string? FlightCode { get; set; }
+
+        [Required(ErrorMessage = "Departure location is required.")]
+        public string? DepartureLocation { get; set; }
+
+        [Required(ErrorMessage = "Arrival location is required.")]
+        public string? ArrivalLocation { get; set; }
+
+        [Required(ErrorMessage = "Departure date and time are required.")]
         [DataType(DataType.DateTime)]
-        [Display(Name = "Departure Time")]
-        public DateTime? DepartureTime { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-ddTHH:mm:ss}")]
+        public DateTime DepartureDateTime { get; set; }
 
-        [Required(ErrorMessage = "Arrival time is required.")]
+        [Required(ErrorMessage = "Arrival date and time are required.")]
         [DataType(DataType.DateTime)]
-        [Display(Name = "Arrival Time")]
-        public DateTime? ArrivalTime { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-ddTHH:mm:ss}")]
+        [DateGreaterThan("DepartureDateTime", ErrorMessage = "Arrival date must be greater than departure date.")]
+        public DateTime ArrivalDateTime { get; set; }
 
-        [Required(ErrorMessage = "Departure city is required.")]
-        [StringLength(50, ErrorMessage = "Departure city must be at most 50 characters.")]
-        [Display(Name = "Departure City")]
-        public string DepartureCity { get; set; }
+        [Required(ErrorMessage = "Flight type is required.")]
+        [EnumDataType(typeof(FlightType), ErrorMessage = "Invalid flight type.")]
+        public string? FlightType { get; set; }
 
-        [Required(ErrorMessage = "Destination is required.")]
-        [StringLength(50, ErrorMessage = "Destination must be at most 50 characters.")]
-        public string Destination { get; set; }
+        [Required(ErrorMessage = "Price is required.")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than 0.")]
+        public decimal Price { get; set; }
 
-        [Required(ErrorMessage = "Airline name is required.")]
-        [StringLength(50, ErrorMessage = "Airline name must be at most 50 characters.")]
-        [Display(Name = "Airline Name")]
-        public string AirlineName { get; set; }
+        // Collection navigation property to link Flight with FlightBooking
+        public ICollection<FlightBooking> FlightBookings { get; set; }
 
-        [Required(ErrorMessage = "Airline code is required.")]
-        [StringLength(6, MinimumLength = 6, ErrorMessage = "Airline code must be 6 characters.")]
-        [Display(Name = "Airline Code")]
-        public string AirlineCode { get; set; }
 
-        public virtual ICollection<FlightBooking> FlightBookings { get; set; }
+    }
 
-        // Parameterless constructor for scaffolding
-        public Flight()
+    public class DateGreaterThanAttribute : ValidationAttribute
+    {
+        private readonly string _comparisonProperty;
+
+        public DateGreaterThanAttribute(string comparisonProperty)
         {
+            _comparisonProperty = comparisonProperty;
         }
 
-        public Flight(int flightId, DateTime departureTime, DateTime arrivalTime, string departureCity, string destination, string airlineName, string airlineCode)
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            FlightId = flightId;
-            DepartureTime = departureTime;
-            ArrivalTime = arrivalTime;
-            DepartureCity = departureCity;
-            Destination = destination;
-            AirlineName = airlineName;
-            AirlineCode = airlineCode;
-        }
+            var propertyInfo = validationContext.ObjectType.GetProperty(_comparisonProperty);
+            if (propertyInfo == null)
+            {
+                return new ValidationResult($"Property with name {_comparisonProperty} not found.");
+            }
 
-        // Additional methods or validations can be added here
+            var comparisonValue = (DateTime)propertyInfo.GetValue(validationContext.ObjectInstance);
+
+            if ((DateTime)value <= comparisonValue)
+            {
+                return new ValidationResult(ErrorMessage ?? $"Arrival date must be greater than {propertyInfo.Name}.");
+            }
+
+            return ValidationResult.Success;
+        }
     }
 }

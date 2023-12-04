@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TravelBookingApp.Migrations
 {
     /// <inheritdoc />
-    public partial class IntialCreate : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -33,18 +33,20 @@ namespace TravelBookingApp.Migrations
                 name: "Flights",
                 columns: table => new
                 {
-                    FlightId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    DepartureTime = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    ArrivalTime = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    DepartureCity = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    Destination = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    AirlineName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    AirlineCode = table.Column<string>(type: "TEXT", maxLength: 6, nullable: false)
+                    FlightName = table.Column<string>(type: "TEXT", nullable: false),
+                    FlightCode = table.Column<string>(type: "TEXT", nullable: false),
+                    DepartureLocation = table.Column<string>(type: "TEXT", nullable: false),
+                    ArrivalLocation = table.Column<string>(type: "TEXT", nullable: false),
+                    DepartureDateTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ArrivalDateTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    FlightType = table.Column<string>(type: "TEXT", nullable: false),
+                    Price = table.Column<decimal>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Flights", x => x.FlightId);
+                    table.PrimaryKey("PK_Flights", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -76,19 +78,24 @@ namespace TravelBookingApp.Migrations
                 name: "FlightBookings",
                 columns: table => new
                 {
-                    FlightBookingId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Fcategory = table.Column<int>(type: "INTEGER", nullable: false),
-                    FBookingClass = table.Column<int>(type: "INTEGER", nullable: false),
-                    FlightId = table.Column<int>(type: "INTEGER", nullable: true)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Email = table.Column<string>(type: "TEXT", nullable: false),
+                    FlightType = table.Column<string>(type: "TEXT", nullable: false),
+                    DepartureLocation = table.Column<string>(type: "TEXT", nullable: false),
+                    ArrivalLocation = table.Column<string>(type: "TEXT", nullable: false),
+                    DepartureDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ArrivalDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    FlightId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FlightBookings", x => x.FlightBookingId);
+                    table.PrimaryKey("PK_FlightBookings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FlightBookings_Flights_FlightBookingId",
-                        column: x => x.FlightBookingId,
+                        name: "FK_FlightBookings_Flights_FlightId",
+                        column: x => x.FlightId,
                         principalTable: "Flights",
-                        principalColumn: "FlightId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -96,25 +103,35 @@ namespace TravelBookingApp.Migrations
                 name: "Passengers",
                 columns: table => new
                 {
-                    PassengerId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    PassengerName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    PassportNo = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
-                    PassengerAge = table.Column<int>(type: "INTEGER", nullable: false),
+                    PassportNumber = table.Column<string>(type: "TEXT", maxLength: 20, nullable: true),
+                    Age = table.Column<int>(type: "INTEGER", nullable: false),
+                    PassengerStatus = table.Column<string>(type: "TEXT", nullable: false),
                     FlightBookingId = table.Column<int>(type: "INTEGER", nullable: false),
-                    PassengerGender = table.Column<int>(type: "INTEGER", nullable: false),
-                    SeatPreference = table.Column<int>(type: "INTEGER", nullable: false),
-                    PassengerStatus = table.Column<string>(type: "TEXT", nullable: true)
+                    FlightId = table.Column<int>(type: "INTEGER", nullable: false),
+                    PassengerId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Passengers", x => x.PassengerId);
+                    table.PrimaryKey("PK_Passengers", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Passengers_FlightBookings_FlightBookingId",
                         column: x => x.FlightBookingId,
                         principalTable: "FlightBookings",
-                        principalColumn: "FlightBookingId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Passengers_Flights_FlightId",
+                        column: x => x.FlightId,
+                        principalTable: "Flights",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Passengers_Passengers_PassengerId",
+                        column: x => x.PassengerId,
+                        principalTable: "Passengers",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -123,9 +140,24 @@ namespace TravelBookingApp.Migrations
                 column: "CarId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_FlightBookings_FlightId",
+                table: "FlightBookings",
+                column: "FlightId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Passengers_FlightBookingId",
                 table: "Passengers",
                 column: "FlightBookingId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Passengers_FlightId",
+                table: "Passengers",
+                column: "FlightId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Passengers_PassengerId",
+                table: "Passengers",
+                column: "PassengerId");
         }
 
         /// <inheritdoc />

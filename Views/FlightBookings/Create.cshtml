@@ -1,51 +1,44 @@
 ﻿@model TravelBookingApp.Models.FlightBooking
 
-@{
-    ViewData["Title"] = "Create";
-}
+<h2>Enter Booking Details</h2>
 
-<h1>Create</h1>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-<h4>FlightBooking</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
-            <div class="form-group">
-                <label asp-for="Fcategory" class="control-label"></label>
-                <select asp-for="Fcategory" class="form-control">
-                    @foreach (var category in Enum.GetValues(typeof(TravelBookingApp.Models.FlightBooking.Category)))
-                    {
-                        <option value="@category">@category</option>
-                    }
-                </select>
-                <span asp-validation-for="Fcategory" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FBookingClass" class="control-label"></label>
-                <select asp-for="FBookingClass" class="form-control">
-                    @foreach (var fClass in Enum.GetValues(typeof(TravelBookingApp.Models.FlightBooking.FClass)))
-                    {
-                        <option value="@fClass">@fClass</option>
-                    }
-                </select>
-                <span asp-validation-for="FBookingClass" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email)
+        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    <div class="form-group">
+        @Html.LabelFor(model => model.DepartureLocation)
+        @Html.EditorFor(model => model.DepartureLocation, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.DepartureLocation, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ArrivalLocation)
+        @Html.EditorFor(model => model.ArrivalLocation, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.ArrivalLocation, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DepartureDate)
+        @Html.EditorFor(model => model.DepartureDate, new { htmlAttributes = new { @class = "form-control", type = "datetime-local" } })
+        @Html.ValidationMessageFor(model => model.DepartureDate, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ArrivalDate)
+        @Html.EditorFor(model => model.ArrivalDate, new { htmlAttributes = new { @class = "form-control", type = "datetime-local" } })
+        @Html.ValidationMessageFor(model => model.ArrivalDate, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Search Flights" class="btn btn-primary" />
+    </div>
 }

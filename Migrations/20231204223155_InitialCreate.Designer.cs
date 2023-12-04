@@ -11,8 +11,8 @@ using TravelBookingApp.Models.Data_Access_Layer;
 namespace TravelBookingApp.Migrations
 {
     [DbContext(typeof(RihlaDbContext))]
-    [Migration("20231203222232_IntialCreate")]
-    partial class IntialCreate
+    [Migration("20231204223155_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -96,97 +96,115 @@ namespace TravelBookingApp.Migrations
 
             modelBuilder.Entity("TravelBookingApp.Models.Flight", b =>
                 {
-                    b.Property<int>("FlightId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("AirlineCode")
-                        .IsRequired()
-                        .HasMaxLength(6)
+                    b.Property<DateTime>("ArrivalDateTime")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AirlineName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("ArrivalTime")
+                    b.Property<string>("ArrivalLocation")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("DepartureCity")
-                        .IsRequired()
-                        .HasMaxLength(50)
+                    b.Property<DateTime>("DepartureDateTime")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("DepartureTime")
+                    b.Property<string>("DepartureLocation")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Destination")
+                    b.Property<string>("FlightCode")
                         .IsRequired()
-                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
-                    b.HasKey("FlightId");
+                    b.Property<string>("FlightName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FlightType")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Flights");
                 });
 
             modelBuilder.Entity("TravelBookingApp.Models.FlightBooking", b =>
                 {
-                    b.Property<int>("FlightBookingId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("FBookingClass")
+                    b.Property<DateTime>("ArrivalDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ArrivalLocation")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DepartureDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DepartureLocation")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("FlightId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Fcategory")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("FlightType")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
-                    b.Property<int?>("FlightId")
-                        .HasColumnType("INTEGER");
+                    b.HasKey("Id");
 
-                    b.HasKey("FlightBookingId");
+                    b.HasIndex("FlightId");
 
                     b.ToTable("FlightBookings");
                 });
 
             modelBuilder.Entity("TravelBookingApp.Models.Passenger", b =>
                 {
-                    b.Property<int>("PassengerId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("FlightBookingId")
-                        .IsRequired()
+                    b.Property<int>("Age")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("PassengerAge")
+                    b.Property<int>("FlightBookingId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("PassengerGender")
+                    b.Property<int>("FlightId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("PassengerName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                    b.Property<int?>("PassengerId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("PassengerStatus")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("PassportNo")
-                        .IsRequired()
+                    b.Property<string>("PassportNumber")
                         .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("SeatPreference")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("PassengerId");
+                    b.HasKey("Id");
 
                     b.HasIndex("FlightBookingId");
+
+                    b.HasIndex("FlightId");
+
+                    b.HasIndex("PassengerId");
 
                     b.ToTable("Passengers");
                 });
@@ -206,7 +224,7 @@ namespace TravelBookingApp.Migrations
                 {
                     b.HasOne("TravelBookingApp.Models.Flight", "Flight")
                         .WithMany("FlightBookings")
-                        .HasForeignKey("FlightBookingId")
+                        .HasForeignKey("FlightId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -221,6 +239,18 @@ namespace TravelBookingApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("TravelBookingApp.Models.Flight", "Flight")
+                        .WithMany()
+                        .HasForeignKey("FlightId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TravelBookingApp.Models.Passenger", null)
+                        .WithMany("Passengers")
+                        .HasForeignKey("PassengerId");
+
+                    b.Navigation("Flight");
+
                     b.Navigation("FlightBooking");
                 });
 
@@ -230,6 +260,11 @@ namespace TravelBookingApp.Migrations
                 });
 
             modelBuilder.Entity("TravelBookingApp.Models.FlightBooking", b =>
+                {
+                    b.Navigation("Passengers");
+                });
+
+            modelBuilder.Entity("TravelBookingApp.Models.Passenger", b =>
                 {
                     b.Navigation("Passengers");
                 });

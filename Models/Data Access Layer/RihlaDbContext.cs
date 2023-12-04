@@ -19,25 +19,6 @@ namespace TravelBookingApp.Models.Data_Access_Layer
         public RihlaDbContext(DbContextOptions<RihlaDbContext> options) : base(options)
         {
         }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            // Configure relationships
-
-            // Relationship between FlightBooking and Flight
-            modelBuilder.Entity<FlightBooking>()
-                .HasOne(fb => fb.Flight)
-                .WithMany(f => f.FlightBookings)
-                .HasForeignKey(fb => fb.FlightBookingId);
-
-            // Relationship between Passenger and FlightBooking
-            modelBuilder.Entity<Passenger>()
-                .HasOne(p => p.FlightBooking)
-                .WithMany(fb => fb.Passengers)
-                .HasForeignKey(p => p.FlightBookingId);
-
-            // Add other configurations as needed
-
-            base.OnModelCreating(modelBuilder);
-        }
+       
     }
 }
