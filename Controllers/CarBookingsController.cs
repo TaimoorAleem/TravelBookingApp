@@ -28,7 +28,7 @@ namespace TravelBookingApp.Controllers
         }
 
         // GET: CarBookings/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
             if (id == null || _context.CarBookings == null)
             {
@@ -48,6 +48,7 @@ namespace TravelBookingApp.Controllers
         // GET: CarBookings/Create
         public IActionResult Create()
         {
+
             List<Car> cars = _context.Cars.ToList();
             ViewBag.Cars = cars.Select(car => new SelectListItem
             {
@@ -83,7 +84,7 @@ namespace TravelBookingApp.Controllers
                     Console.WriteLine($"ModelState Error: {errorMessage}");
                 }
             }
-            return RedirectToAction("Index","Home");
+            //return RedirectToAction("Detail",new {id = carBooking.Id});
 
             // Repopulate the ViewBag.Cars with SelectList for the dropdown list
             List<Car> cars = _context.Cars.ToList();
@@ -93,7 +94,8 @@ namespace TravelBookingApp.Controllers
                 Text = $"Make: {car.Make} | Model: {car.Model} | Year: {car.Year} | City: {car.City} | Capacity: {car.Capacity}, Price: ${car.DailyRate}"
             }).ToList();
 
-            return View(carBooking);
+            //return View(carBooking
+            return RedirectToAction("Details", new { id = carBooking.Id });
         }
 
 
@@ -201,7 +203,7 @@ namespace TravelBookingApp.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index","Home");
         }
 
         private bool CarBookingExists(int id)

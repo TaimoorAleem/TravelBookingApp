@@ -12,21 +12,20 @@
     <form asp-action="Create" class="row">
         <div class="col-md-6" >
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label>Category Filter:</label>
+                <input type="text" name="searchFilter" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Year Filter:</label>
+                <input type="number" name="yearFilter" class="form-control" />
+            </div>
             <div class="form-group" style="max-height: 200px; overflow-y: auto;">
                 <label>Select a Car:</label>
-                 @* <select asp-for="CarId" class="form-control">
-                    @foreach (var car in ViewBag.Cars)
-                    {
-                         <option value="@car.Value"> @car.Text</option> 
-                         <div>
-                            <input type="radio" asp-for="CarId" value="@car.Value" />
-                            @car.Text
-                        </div> 
-                    }
-                </select>  *@
+                 
                 @foreach (var car in ViewBag.Cars)
                 {
-                    @* <option value="@car.Value"> @car.Text</option> *@
+                    
                     <div>
                         <input type="radio" asp-for="CarId" value="@car.Value" />
                         @car.Text
