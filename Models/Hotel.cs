@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TravelBookingApp.Models
 {
@@ -35,18 +36,12 @@ namespace TravelBookingApp.Models
         [Range(1, int.MaxValue, ErrorMessage = "Number of rooms must be at least 1")]
         public int NumberOfRooms { get; set; }
 
-        public List<string> Policies { get; set; }
-
-        public List<string> ImageUrls { get; set; }
-
         [Phone]
         public string PhoneNumber { get; set; }
 
         [EmailAddress]
         public string Email { get; set; }
-
-        public List<string> Amenities { get; set; }
-
+        
         [DataType(DataType.Currency)]
         public decimal PriceRangeStart { get; set; }
 
@@ -54,6 +49,15 @@ namespace TravelBookingApp.Models
         public decimal PriceRangeEnd { get; set; }
 
         public virtual ICollection<HotelBooking> Bookings { get; set; }
+
+        [NotMapped]
+        public List<string> Policies { get; set; }
+
+        [NotMapped]
+        public List<string> ImageUrls { get; set; }
+
+        [NotMapped]
+        public List<string> Amenities { get; set; }
     }
 }
 
