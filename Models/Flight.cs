@@ -37,7 +37,10 @@ namespace TravelBookingApp.Models
         [StringLength(50, ErrorMessage = "Destination must be at most 50 characters.")]
         public string Destination { get; set; }
 
-       
+        [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than 0.")]
+        public double Price { get; set; }
+
+
 
         public virtual ICollection<FlightBooking> FlightBookings { get; set; }
 

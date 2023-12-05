@@ -1,26 +1,71 @@
-﻿@model List<TravelBookingApp.Models.FlightBooking>
+﻿@model IEnumerable<TravelBookingApp.Models.FlightBooking>
 
-<h2>Flight Booking Index</h2>
+@{
+    ViewData["Title"] = "Index";
+}
 
+<style>
+    body {
+        background-color: white;
+    }
+</style>
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
 <table class="table">
     <thead>
         <tr>
-            <th>Flight</th>
-            <th>Email</th>
-            <th>Passport Number</th>
-            <th>Phone Number</th>
-            <th>Companions</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PassportNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumberOfCompanions)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Flight)
+            </th>
+            @* <th>
+                @Html.DisplayNameFor(model => model.FlightClass)
+            </th> *@
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var booking in Model)
+        @foreach (var item in Model)
         {
             <tr>
-                <td>@booking.Flight.AirlineName - @booking.Flight.DepartureCity to @booking.Flight.Destination</td>
-                <td>@booking.Email</td>
-                <td>@booking.PassportNumber</td>
-                <td>@booking.PhoneNumber</td>
-                <td>@booking.NumberOfCompanions</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PassportNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumberOfCompanions)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Flight.AirlineCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FlightClass)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.FlightBookingId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.FlightBookingId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.FlightBookingId">Delete</a>
+                </td>
             </tr>
         }
     </tbody>
