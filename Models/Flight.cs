@@ -8,6 +8,15 @@ namespace TravelBookingApp.Models
         // Properties
         [Key]
         public int FlightId { get; set; }
+        [Required(ErrorMessage = "Airline name is required.")]
+        [StringLength(50, ErrorMessage = "Airline name must be at most 50 characters.")]
+        [Display(Name = "Airline Name")]
+        public string AirlineName { get; set; }
+
+        [Required(ErrorMessage = "Airline code is required.")]
+        [StringLength(6, MinimumLength = 6, ErrorMessage = "Airline code must be 6 characters.")]
+        [Display(Name = "Airline Code")]
+        public string AirlineCode { get; set; }
 
         [Required(ErrorMessage = "Departure time is required.")]
         [DataType(DataType.DateTime)]
@@ -28,15 +37,7 @@ namespace TravelBookingApp.Models
         [StringLength(50, ErrorMessage = "Destination must be at most 50 characters.")]
         public string Destination { get; set; }
 
-        [Required(ErrorMessage = "Airline name is required.")]
-        [StringLength(50, ErrorMessage = "Airline name must be at most 50 characters.")]
-        [Display(Name = "Airline Name")]
-        public string AirlineName { get; set; }
-
-        [Required(ErrorMessage = "Airline code is required.")]
-        [StringLength(6, MinimumLength = 6, ErrorMessage = "Airline code must be 6 characters.")]
-        [Display(Name = "Airline Code")]
-        public string AirlineCode { get; set; }
+       
 
         public virtual ICollection<FlightBooking> FlightBookings { get; set; }
 

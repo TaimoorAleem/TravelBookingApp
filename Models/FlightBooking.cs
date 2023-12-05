@@ -8,30 +8,31 @@ namespace TravelBookingApp.Models
         [Key]
         public int FlightBookingId { get; set; }
 
-        [ForeignKey("FlightId")]
-        public virtual  Flight? Flight { get; set; }
-        public Category Fcategory { get; set; } // Flight Category: International or domestic
+        [ForeignKey("Flight")]
+        public int FlightId { get; set; }
 
-        public FClass FBookingClass { get; set; }// Flight Booking Class
+        public string? Email { get; set; }
 
-        public List<Passenger>? Passengers { get; set; } // Added list for passengers
-        /*public FlightBooking()
-        {
-            Passengers = new List<Passenger>();
-        }*/
+        [Required]
+        public string? PassportNumber { get; set; }
 
-        public enum FClass
+        [Required]
+        [Phone]
+        public string? PhoneNumber { get; set; }
+
+        [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Please enter a value greater than or equal to {1}")]
+        public int NumberOfCompanions { get; set; }
+
+        public virtual Flight Flight { get; set; }
+
+        public Class FlightClass { get; set; }
+
+        public enum Class
         {
             Economy,
             Business,
             FirstClass
         }
-
-        public enum Category
-        {
-            Domestic,
-            International
-        }
-
     }
 }
