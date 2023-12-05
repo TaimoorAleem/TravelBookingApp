@@ -16,7 +16,6 @@ namespace TravelBookingApp.Models
 
         [ForeignKey("User")]
         public int Id { get; set; }
-        // public virtual User User { get; set; } // Uncomment if you have a User model
 
         [Required]
         public DateTime CheckInDate { get; set; }
