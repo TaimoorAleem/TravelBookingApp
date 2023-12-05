@@ -11,10 +11,11 @@ namespace TravelBookingApp.Models
 
         [ForeignKey("Hotel")]
         public int HotelId { get; set; }
-        public virtual Hotel Hotel { get; set; }
+        [Required]
+        public virtual required Hotel Hotel { get; set; }
 
         [ForeignKey("User")]
-        public int Id { get; set; } 
+        public int Id { get; set; }
 
         [Required]
         public DateTime CheckInDate { get; set; }
@@ -28,20 +29,11 @@ namespace TravelBookingApp.Models
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }
 
-        public string SpecialRequest { get; set; }
-
         public BookingState State { get; set; } // Enum for booking state
 
-        public bool IsValidBookingDateRange()
-        {
-            return CheckInDate < CheckOutDate && CheckInDate.Date >= DateTime.Today.Date;
-        }
+        public bool IsValidBookingDateRange() => CheckInDate < CheckOutDate && CheckInDate.Date >= DateTime.Today.Date;
 
-        public void CalculatePrice(decimal ratePerDay)
-        {
-            int durationInDays = (CheckOutDate - CheckInDate).Days;
-            Price = durationInDays * ratePerDay;
-        }
+        public void CalculatePrice(decimal ratePerDay) => Price = (CheckOutDate - CheckInDate).Days * ratePerDay;
 
         [NotMapped]
         public int DurationInDays => (CheckOutDate - CheckInDate).Days;
