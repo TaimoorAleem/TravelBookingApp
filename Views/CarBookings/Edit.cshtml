@@ -9,20 +9,32 @@
 <h4>CarBooking</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+    <form asp-action="Edit" class="row">
+        <div class="col-md-6">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="CarId" class="control-label"></label>
-                <select asp-for="CarId" class="form-control" asp-items="ViewBag.CarId"></select>
-                <span asp-validation-for="CarId" class="text-danger"></span>
+            
+            <div class="form-group" style="max-height: 300px; overflow-y: auto;">
+                <label>Select a Car:</label>
+
+                @foreach (var car in ViewBag.Cars)
+                {
+
+                    <div>
+                        <input type="radio" asp-for="CarId" value="@car.Value" />
+                        @Html.Raw(car.Text)
+                    </div>
+                }
+
             </div>
+        </div>
+        <div class="col-md-6">
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+
+
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" />
@@ -45,20 +57,24 @@
             </div>
             <div class="form-group">
                 <label asp-for="PickupTime" class="control-label"></label>
-                <input asp-for="PickupTime" class="form-control" />
+                <input asp-for="PickupTime" class="form-control datatimepicker" />
                 <span asp-validation-for="PickupTime" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
-        </form>
-    </div>
+        </div>
+
+    </form>
+
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
