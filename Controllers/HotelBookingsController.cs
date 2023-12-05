@@ -51,15 +51,18 @@ namespace TravelBookingApp.Controllers
         // POST: HotelBookings/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("HotelId,UserId,CheckInDate,CheckOutDate,NumberOfGuests,SpecialRequest")] HotelBooking hotelBooking)
+        public async Task<IActionResult> Create(HotelBooking hotelBooking)
         {
             if (ModelState.IsValid)
             {
+
                 _context.Add(hotelBooking);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                // Redirect to a confirmation page or back to the list
+                return RedirectToAction(nameof(Confirmation), new { id = hotelBooking.HotelBookingId });
             }
-            ViewBag.Hotels = _context.Hotels.ToList();
+            // something failed; re-display form
             return View(hotelBooking);
         }
 
@@ -75,40 +78,6 @@ namespace TravelBookingApp.Controllers
             if (hotelBooking == null)
             {
                 return NotFound();
-            }
-            ViewBag.Hotels = _context.Hotels.ToList();
-            return View(hotelBooking);
-        }
-
-        // POST: HotelBookings/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("HotelBookingId,HotelId,UserId,CheckInDate,CheckOutDate,NumberOfGuests,Price,SpecialRequest")] HotelBooking hotelBooking)
-        {
-            if (id != hotelBooking.HotelBookingId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(hotelBooking);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!HotelBookingExists(hotelBooking.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
             }
             ViewBag.Hotels = _context.Hotels.ToList();
             return View(hotelBooking);
@@ -149,7 +118,6 @@ namespace TravelBookingApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
         private bool HotelBookingExists(int id)
         {
             return _context.HotelBookings.Any(e => e.HotelBookingId == id);
@@ -163,16 +131,30 @@ namespace TravelBookingApp.Controllers
 
         public IActionResult CreateBooking(int hotelId)
         {
-            var hotel = SampleHotelData.Hotels.FirstOrDefault(h => h.HotelId == hotelId);
+            var hotel = _context.Hotels.FirstOrDefault(h => h.HotelId == hotelId);
             if (hotel == null)
             {
                 return NotFound();
             }
 
-            var booking = new HotelBooking { Hotel = hotel, HotelId = hotelId };
+            var booking = new HotelBooking { HotelId = hotelId, Hotel = hotel };
             return View(booking);
         }
 
+
+        public async Task<IActionResult> Confirmation(int id)
+        {
+            var hotelBooking = await _context.HotelBookings
+                .Include(h => h.Hotel)
+                .FirstOrDefaultAsync(hb => hb.HotelBookingId == id);
+
+            if (hotelBooking == null)
+            {
+                return NotFound();
+            }
+
+            return View(hotelBooking);
+        }
     }
 }
 

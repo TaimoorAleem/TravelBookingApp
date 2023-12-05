@@ -163,10 +163,6 @@ namespace TravelBookingApp.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -174,10 +170,6 @@ namespace TravelBookingApp.Migrations
 
                     b.Property<int>("NumberOfRooms")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
 
                     b.Property<decimal>("PriceRangeEnd")
                         .HasColumnType("TEXT");
@@ -205,6 +197,14 @@ namespace TravelBookingApp.Migrations
                     b.Property<DateTime>("CheckOutDate")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("HotelId")
                         .HasColumnType("INTEGER");
 
@@ -213,6 +213,10 @@ namespace TravelBookingApp.Migrations
 
                     b.Property<int>("NumberOfGuests")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("TEXT");

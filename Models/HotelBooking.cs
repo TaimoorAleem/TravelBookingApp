@@ -6,16 +6,31 @@ namespace TravelBookingApp.Models
 {
     public class HotelBooking
     {
+        public HotelBooking() 
+        {
+            FullName = string.Empty;
+            Email = string.Empty;
+            PhoneNumber = string.Empty;
+        }
+
         [Key]
         public int HotelBookingId { get; set; }
-
+        
         [ForeignKey("Hotel")]
         public int HotelId { get; set; }
-        [Required]
         public virtual required Hotel Hotel { get; set; }
 
-        [ForeignKey("User")]
-        public int Id { get; set; }
+        [Required(ErrorMessage = "Please enter your name.")]
+        [Display(Name = "Full Name")]
+        public string FullName { get; set; }
+
+        [Required(ErrorMessage = "Please enter your phone number.")]
+        [Phone]
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
+
+        [EmailAddress]
+        public string Email { get; set; }
 
         [Required]
         public DateTime CheckInDate { get; set; }
