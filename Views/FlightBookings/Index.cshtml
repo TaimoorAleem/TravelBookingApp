@@ -7,6 +7,7 @@
 <style>
     body {
         background-color: white;
+        background-image:url('https: //happyyoungpower.nl/wp-content/uploads/sites/7/2017/01/happy-journey-plane.jpg')
     }
 </style>
 
@@ -19,6 +20,10 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            
+            <th>
                 @Html.DisplayNameFor(model => model.Email)
             </th>
             <th>
@@ -30,12 +35,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.NumberOfCompanions)
             </th>
+            
             <th>
-                @Html.DisplayNameFor(model => model.Flight)
-            </th>
-            @* <th>
                 @Html.DisplayNameFor(model => model.FlightClass)
-            </th> *@
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -43,6 +46,10 @@
         @foreach (var item in Model)
         {
             <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+
                 <td>
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
@@ -55,9 +62,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.NumberOfCompanions)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Flight.AirlineCode)
-                </td>
+               
                 <td>
                     @Html.DisplayFor(modelItem => item.FlightClass)
                 </td>

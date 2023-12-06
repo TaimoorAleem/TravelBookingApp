@@ -102,10 +102,24 @@ namespace TravelBookingApp.Migrations
                         .HasMaxLength(6)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("AirlineDescription")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("AirlineName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
+
+                    b.HasKey("FlightId");
+
+                    b.ToTable("Flights");
+                });
+
+            modelBuilder.Entity("TravelBookingApp.Models.FlightBooking", b =>
+                {
+                    b.Property<int>("FlightBookingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime?>("ArrivalTime")
                         .IsRequired()
@@ -125,20 +139,6 @@ namespace TravelBookingApp.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("REAL");
-
-                    b.HasKey("FlightId");
-
-                    b.ToTable("Flights");
-                });
-
-            modelBuilder.Entity("TravelBookingApp.Models.FlightBooking", b =>
-                {
-                    b.Property<int>("FlightBookingId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Email")
                         .HasColumnType("TEXT");
 
@@ -147,6 +147,9 @@ namespace TravelBookingApp.Migrations
 
                     b.Property<int>("FlightId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("NumberOfCompanions")
                         .HasColumnType("INTEGER");
@@ -257,13 +260,13 @@ namespace TravelBookingApp.Migrations
 
             modelBuilder.Entity("TravelBookingApp.Models.FlightBooking", b =>
                 {
-                    b.HasOne("TravelBookingApp.Models.Flight", "Flight")
+                    b.HasOne("TravelBookingApp.Models.Flight", "Flights")
                         .WithMany("FlightBookings")
                         .HasForeignKey("FlightId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Flight");
+                    b.Navigation("Flights");
                 });
 
             modelBuilder.Entity("TravelBookingApp.Models.HotelBooking", b =>

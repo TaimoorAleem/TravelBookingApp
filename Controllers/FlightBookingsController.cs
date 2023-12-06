@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -17,168 +19,182 @@ namespace TravelBookingApp.Controllers
             _context = context;
         }
 
+        // GET: FlightBookings
         public async Task<IActionResult> Index()
         {
-            var bookings = await _context.FlightBookings.Include(f => f.Flight).ToListAsync();
-            return View(bookings);
+            return _context.FlightBookings != null ?
+                        View(await _context.FlightBookings.ToListAsync()) :
+                        Problem("Entity set 'RihlaDbContext.FlightBookings'  is null.");
         }
 
-        public async Task<IActionResult> Details(int? id)
+        // GET: FlightBookings/Details/5
+        public async Task<IActionResult> Details(int Id)
         {
-            if (id == null)
+            if (Id == null || _context.FlightBookings == null)
             {
                 return NotFound();
             }
 
-            var flightBooking = await _context.FlightBookings
-                .Include(f => f.Flight)
-                .FirstOrDefaultAsync(m => m.FlightBookingId == id);
-
-            if (flightBooking == null)
+            var FlightBooking = await _context.FlightBookings
+                .FirstOrDefaultAsync(m => m.FlightBookingId == Id);
+            if (FlightBooking == null)
             {
                 return NotFound();
             }
 
-            return View(flightBooking);
+            return View(FlightBooking);
         }
 
+        // GET: FlightBookings/Create
         public IActionResult Create()
         {
-            ViewData["FlightId"] = new SelectList(_context.Flights, "FlightId", "AirlineCode");
+
+            List<Flight> Flights = _context.Flights.ToList();
+            ViewBag.Flights = Flights.Select(Flight => new SelectListItem
+            {
+                Value = Flight.FlightId.ToString(),
+                Text = $"{Flight.AirlineName} \t {Flight.AirlineDescription} \t {Flight.AirlineCode}"
+            }).ToList();
+
             return View();
         }
 
+        // POST: FlightBookings/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkFlightBookingId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FlightBookingId,FlightId,Email,PassportNumber,PhoneNumber,NumberOfCompanions,FlightClass")] FlightBooking flightBooking)
+        public async Task<IActionResult> Create(FlightBooking FlightBooking)
         {
-            if (ModelState.IsValid)
+
+            _context.Add(FlightBooking);
+            await _context.SaveChangesAsync();
+
+
+
+            foreach (var modelState in ModelState.Values)
             {
-                _context.Add(flightBooking);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                foreach (var error in modelState.Errors)
+                {
+                    // Log or debug the error messages
+                    var errorMessage = error.ErrorMessage;
+                    var exception = error.Exception;
+
+                    // Add your logging mechanism here, for example, logging to the console
+                    Console.WriteLine($"ModelState Error: {errorMessage}");
+                }
             }
-            ViewData["FlightId"] = new SelectList(_context.Flights, "FlightId", "AirlineCode", flightBooking.FlightId);
-            return View(flightBooking);
+            //return RedirectToAction("Detail",new {FlightBookingId = FlightBooking.FlightBookingId});
+
+            // Repopulate the ViewBag.Flights with SelectList for the dropdown list
+            List<Flight> Flights = _context.Flights.ToList();
+            ViewBag.Flights = Flights.Select(Flight => new SelectListItem
+            {
+                Value = Flight.FlightId.ToString(),
+                Text = $"AirlineName: {Flight.AirlineName} | Model: {Flight.AirlineCode} | AirlineDescription: {Flight.AirlineDescription}"
+            }).ToList();
+
+            //return View(FlightBooking
+            return RedirectToAction("Index", new { FlightBookingId = FlightBooking.FlightBookingId });
         }
 
-        public async Task<IActionResult> Edit(int? id)
+
+        // GET: FlightBookings/Edit/5
+        public async Task<IActionResult> Edit(int? Id)
         {
-            if (id == null)
+            if (Id == null)
             {
                 return NotFound();
             }
 
-            var flightBooking = await _context.FlightBookings.FindAsync(id);
-            if (flightBooking == null)
+            var FlightBooking = await _context.FlightBookings.FindAsync(Id);
+            if (FlightBooking == null)
             {
                 return NotFound();
             }
-            ViewData["FlightId"] = new SelectList(_context.Flights, "FlightId", "AirlineCode", flightBooking.FlightId);
-            return View(flightBooking);
+
+            // Include the Flights for the dropdown list
+            List<Flight> Flights = _context.Flights.ToList();
+            ViewBag.Flights = Flights.Select(Flight => new SelectListItem
+            {
+                Value = Flight.FlightId.ToString(),
+                Text = $"AirlineName: {Flight.AirlineName} | Model: {Flight.AirlineCode} | AirlineDescription: {Flight.AirlineDescription}",
+                Selected = Flight.FlightId == FlightBooking.FlightBookingId
+            }).ToList();
+
+            return View(FlightBooking);
         }
 
+        // POST: FlightBookings/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("FlightBookingId,FlightId,Email,PassportNumber,PhoneNumber,NumberOfCompanions,FlightClass")] FlightBooking flightBooking)
+        public async Task<IActionResult> Edit(int Id, [Bind("FlightBookingId,FlightId,Name,Email,PassportNumber,PhoneNumber,NumberofCompanions,FlightClass")] FlightBooking FlightBooking)
         {
-            if (id != flightBooking.FlightBookingId)
+            if (Id != FlightBooking.FlightBookingId)
             {
                 return NotFound();
             }
+            _context.Update(FlightBooking);
+            await _context.SaveChangesAsync();
+            
 
-            if (ModelState.IsValid)
+            List<Flight> Flights = _context.Flights.ToList();
+            ViewBag.FlightBookings = Flights.Select(Flight => new SelectListItem
             {
-                try
-                {
-                    _context.Update(flightBooking);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!FlightBookingExists(flightBooking.FlightBookingId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["FlightId"] = new SelectList(_context.Flights, "FlightId", "AirlineCode", flightBooking.FlightId);
-            return View(flightBooking);
+                Value = Flight.FlightId.ToString(),
+                Text = $"AirlineName: {Flight.AirlineName} | Model: {Flight.AirlineCode} | AirlineDescription: {Flight.AirlineDescription}",
+                Selected = Flight.FlightId == FlightBooking.FlightBookingId
+            }).ToList();
+
+            return RedirectToAction("Index");
+
+
+
+            // Include the Flights for the dropdown list in case of valFlightBookingIdation errors
+
         }
 
-        public async Task<IActionResult> Delete(int? id)
+
+        // GET: FlightBookings/Delete/5
+        public async Task<IActionResult> Delete(int? Id)
         {
-            if (id == null)
+            if (Id == null || _context.FlightBookings == null)
             {
                 return NotFound();
             }
 
-            var flightBooking = await _context.FlightBookings
-                .Include(f => f.Flight)
-                .FirstOrDefaultAsync(m => m.FlightBookingId == id);
-            if (flightBooking == null)
+            var FlightBooking = await _context.FlightBookings
+                .FirstOrDefaultAsync(m => m.FlightBookingId == Id);
+            if (FlightBooking == null)
             {
                 return NotFound();
             }
 
-            return View(flightBooking);
+            return View(FlightBooking);
         }
 
+        // POST: FlightBookings/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int Id)
         {
-            var flightBooking = await _context.FlightBookings.FindAsync(id);
-            if (flightBooking != null)
+            if (_context.FlightBookings == null)
             {
-                _context.FlightBookings.Remove(flightBooking);
+                return Problem("Entity set 'RihlaDbContext.FlightBookings'  is null.");
+            }
+            var FlightBooking = await _context.FlightBookings.FindAsync(Id);
+            if (FlightBooking != null)
+            {
+                _context.FlightBookings.Remove(FlightBooking);
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
         }
 
-        private bool FlightBookingExists(int id)
+        private bool FlightBookingExists(int FlightBookingId)
         {
-            return (_context.FlightBookings?.Any(e => e.FlightBookingId == id)).GetValueOrDefault();
-        }
-
-        public IActionResult SelectFlight()
-        {
-            var flights = SampleFlightData.Flights;
-            return View(flights);
-        }
-
-        public IActionResult Book(int flightId)
-        {
-            var flight = SampleFlightData.Flights.FirstOrDefault(f => f.FlightId == flightId);
-            if (flight == null)
-            {
-                return NotFound();
-            }
-
-            var booking = new FlightBooking { Flight = flight, FlightId = flightId };
-            return View(booking);
-        }
-
-        [HttpPost]
-        public IActionResult Book(FlightBooking booking)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.FlightBookings.Add(booking);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            var flight = SampleFlightData.Flights.FirstOrDefault(f => f.FlightId == booking.FlightId);
-            booking.Flight = flight;
-            return View(booking);
+            return (_context.FlightBookings?.Any(e => e.FlightBookingId == FlightBookingId)).GetValueOrDefault();
         }
     }
 }

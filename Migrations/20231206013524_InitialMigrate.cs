@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TravelBookingApp.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialMigrate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -37,11 +37,7 @@ namespace TravelBookingApp.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     AirlineName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     AirlineCode = table.Column<string>(type: "TEXT", maxLength: 6, nullable: false),
-                    DepartureTime = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    ArrivalTime = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    DepartureCity = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    Destination = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    Price = table.Column<double>(type: "REAL", nullable: false)
+                    AirlineDescription = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -101,6 +97,11 @@ namespace TravelBookingApp.Migrations
                     FlightBookingId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     FlightId = table.Column<int>(type: "INTEGER", nullable: false),
+                    DepartureTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ArrivalTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DepartureCity = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Destination = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
                     Email = table.Column<string>(type: "TEXT", nullable: true),
                     PassportNumber = table.Column<string>(type: "TEXT", nullable: false),
                     PhoneNumber = table.Column<string>(type: "TEXT", nullable: false),

@@ -28,7 +28,7 @@
                     
                     <div>
                         <input type="radio" asp-for="CarId" value="@car.Value" />
-                        @car.Text
+                        @Html.Raw(car.Text)
                     </div>
                 }
                 
