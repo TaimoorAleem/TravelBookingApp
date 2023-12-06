@@ -48,25 +48,20 @@ namespace TravelBookingApp.Controllers
             return View();
         }
 
+        // POST: HotelBookings/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(HotelBooking hotelBooking)
+        public async Task<IActionResult> Create([Bind("HotelId,UserId,CheckInDate,CheckOutDate,NumberOfGuests,SpecialRequest")] HotelBooking hotelBooking)
         {
             if (ModelState.IsValid)
             {
-                // Determine the HotelId based on user's selection
-                // For example, if the user selects the first hotel, set HotelId to 1
-                hotelBooking.HotelId = hotelBooking.HotelId; // Adjust this line according to your actual logic
-
                 _context.Add(hotelBooking);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Confirmation), new { id = hotelBooking.HotelBookingId });
+                return RedirectToAction(nameof(Index));
             }
-
-            // If model state is not valid, return the form view
-            return View("CreateBooking", hotelBooking);
+            ViewBag.Hotels = _context.Hotels.ToList();
+            return View(hotelBooking);
         }
-
 
         // GET: HotelBookings/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -80,6 +75,40 @@ namespace TravelBookingApp.Controllers
             if (hotelBooking == null)
             {
                 return NotFound();
+            }
+            ViewBag.Hotels = _context.Hotels.ToList();
+            return View(hotelBooking);
+        }
+
+        // POST: HotelBookings/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("HotelBookingId,HotelId,UserId,CheckInDate,CheckOutDate,NumberOfGuests,Price,SpecialRequest")] HotelBooking hotelBooking)
+        {
+            if (id != hotelBooking.HotelBookingId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(hotelBooking);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!HotelBookingExists(hotelBooking.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
             }
             ViewBag.Hotels = _context.Hotels.ToList();
             return View(hotelBooking);
@@ -110,18 +139,13 @@ namespace TravelBookingApp.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var hotelBooking = await _context.HotelBookings.FindAsync(id);
-
-            if (hotelBooking != null)
-            {
-                _context.HotelBookings.Remove(hotelBooking);
-                await _context.SaveChangesAsync();
-                // If you reach this point, the deletion was requested.
-            }
-            else
+            if (hotelBooking == null)
             {
                 return NotFound();
             }
 
+            _context.HotelBookings.Remove(hotelBooking);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
@@ -142,32 +166,13 @@ namespace TravelBookingApp.Controllers
             var hotel = SampleHotelData.Hotels.FirstOrDefault(h => h.HotelId == hotelId);
             if (hotel == null)
             {
-                // Handle the situation when hotel is not found in the sample data.
-                // You could return a "NotFound" view or set an error message.
-                return NotFound("Hotel information is not available.");
+                return NotFound();
             }
 
-            var booking = new HotelBooking { HotelId = hotelId, Hotel = hotel };
+            var booking = new HotelBooking { Hotel = hotel, HotelId = hotelId };
             return View(booking);
         }
 
-        public async Task<IActionResult> Confirmation(int id)
-        {
-            var hotelBooking = await _context.HotelBookings.Include(hb => hb.Hotel).FirstOrDefaultAsync(hb => hb.HotelBookingId == id);
-            if (hotelBooking == null)
-            {
-                // Handle the situation when the booking is not found.
-                return NotFound("Booking not found.");
-            }
-
-            if (hotelBooking.Hotel == null)
-            {
-                // This means the hotel info was not loaded or doesn't exist in your database or sample data.
-                return NotFound("Hotel information is not available.");
-            }
-
-            return View(hotelBooking);
-        }
     }
 }
 

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TravelBookingApp.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigrate : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -54,15 +54,11 @@ namespace TravelBookingApp.Migrations
                     Address = table.Column<string>(type: "TEXT", nullable: false),
                     Rating = table.Column<double>(type: "REAL", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: false),
-<<<<<<<< HEAD:Migrations/20231206031638_InitialCreate.cs
-                    NumberOfRooms = table.Column<int>(type: "INTEGER", nullable: false)
-========
                     NumberOfRooms = table.Column<int>(type: "INTEGER", nullable: false),
                     PhoneNumber = table.Column<string>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
                     PriceRangeStart = table.Column<decimal>(type: "TEXT", nullable: false),
                     PriceRangeEnd = table.Column<decimal>(type: "TEXT", nullable: false)
->>>>>>>> 8f9785099dc9370fab514325616830a22d9d6b58:Migrations/20231205032340_InitialCreate.cs
                 },
                 constraints: table =>
                 {
@@ -129,22 +125,12 @@ namespace TravelBookingApp.Migrations
                 {
                     HotelBookingId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-<<<<<<<< HEAD:Migrations/20231206031638_InitialCreate.cs
-                    HotelId = table.Column<int>(type: "INTEGER", nullable: true),
-                    FullName = table.Column<string>(type: "TEXT", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: false),
-                    Email = table.Column<string>(type: "TEXT", nullable: false),
-                    CheckInDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    CheckOutDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    NumberOfGuests = table.Column<int>(type: "INTEGER", nullable: false),
-========
                     HotelId = table.Column<int>(type: "INTEGER", nullable: false),
                     Id = table.Column<int>(type: "INTEGER", nullable: false),
                     CheckInDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     CheckOutDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     NumberOfGuests = table.Column<int>(type: "INTEGER", nullable: false),
                     Price = table.Column<decimal>(type: "TEXT", nullable: false),
->>>>>>>> 8f9785099dc9370fab514325616830a22d9d6b58:Migrations/20231205032340_InitialCreate.cs
                     State = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
@@ -154,12 +140,8 @@ namespace TravelBookingApp.Migrations
                         name: "FK_HotelBookings_Hotels_HotelId",
                         column: x => x.HotelId,
                         principalTable: "Hotels",
-<<<<<<<< HEAD:Migrations/20231206031638_InitialCreate.cs
-                        principalColumn: "HotelId");
-========
                         principalColumn: "HotelId",
                         onDelete: ReferentialAction.Cascade);
->>>>>>>> 8f9785099dc9370fab514325616830a22d9d6b58:Migrations/20231205032340_InitialCreate.cs
                 });
 
             migrationBuilder.CreateIndex(
