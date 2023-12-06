@@ -53,7 +53,7 @@ namespace TravelBookingApp.Controllers
             ViewBag.Cars = cars.Select(car => new SelectListItem
             {
                 Value = car.Id.ToString(),
-                Text = $"{car.Make} \t {car.Model} \t {car.Year} , \n  City: {car.City} , \n Capacity: {car.Capacity}"
+                Text = $"{car.Make} \t {car.Model} \t {car.Year} ,<br> \t  City: {car.City} , <br>\t Capacity: {car.Capacity}, Price: ${car.DailyRate}"
             }).ToList();
 
             return View();
@@ -91,7 +91,8 @@ namespace TravelBookingApp.Controllers
             ViewBag.Cars = cars.Select(car => new SelectListItem
             {
                 Value = car.Id.ToString(),
-                Text = $"Make: {car.Make} | Model: {car.Model} | Year: {car.Year} | City: {car.City} | Capacity: {car.Capacity}, Price: ${car.DailyRate}"
+                Text = $"{car.Make} \t {car.Model} \t {car.Year} ,<br> \t  City: {car.City} , <br>\t Capacity: {car.Capacity}, Price: ${car.DailyRate}"
+
             }).ToList();
 
             //return View(carBooking
@@ -118,7 +119,7 @@ namespace TravelBookingApp.Controllers
             ViewBag.Cars = cars.Select(car => new SelectListItem
             {
                 Value = car.Id.ToString(),
-                Text = $"Make: {car.Make} - Model: {car.Model} - Year: {car.Year} - City: {car.City} - Capacity: {car.Capacity} , Price: ${car.DailyRate}",
+                Text = $"{car.Make} \t {car.Model} \t {car.Year} ,<br> \t  City: {car.City} , <br>\t Capacity: {car.Capacity}, Price: ${car.DailyRate}",
                 Selected = car.Id == carBooking.CarId
             }).ToList();
 
@@ -135,37 +136,23 @@ namespace TravelBookingApp.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(carBooking);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CarBookingExists(carBooking.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-            }
+            
+            _context.Update(carBooking);
+            await _context.SaveChangesAsync();
+                
+             
+            
 
             // Include the cars for the dropdown list in case of validation errors
             List<Car> cars = _context.Cars.ToList();
             ViewBag.Cars = cars.Select(car => new SelectListItem
             {
                 Value = car.Id.ToString(),
-                Text = $"Make: {car.Make} - Model: {car.Model} - Year: {car.Year} - City: {car.City} - Capacity: {car.Capacity}, Price: ${car.DailyRate}",
+                Text = $"{car.Make} \t {car.Model} \t {car.Year} ,<br> \t  City: {car.City} , <br>\t Capacity: {car.Capacity}, Price: ${car.DailyRate}",
                 Selected = car.Id == carBooking.CarId
             }).ToList();
-
-            return View(carBooking);
+            return RedirectToAction("Details", new { id = carBooking.Id });
+            
         }
 
 
