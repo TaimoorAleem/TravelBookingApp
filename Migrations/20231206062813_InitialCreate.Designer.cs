@@ -11,7 +11,7 @@ using TravelBookingApp.Models.Data_Access_Layer;
 namespace TravelBookingApp.Migrations
 {
     [DbContext(typeof(RihlaDbContext))]
-    [Migration("20231206060610_InitialCreate")]
+    [Migration("20231206062813_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
