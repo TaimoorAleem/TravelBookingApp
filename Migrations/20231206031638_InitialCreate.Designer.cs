@@ -11,8 +11,8 @@ using TravelBookingApp.Models.Data_Access_Layer;
 namespace TravelBookingApp.Migrations
 {
     [DbContext(typeof(RihlaDbContext))]
-    [Migration("20231203222232_IntialCreate")]
-    partial class IntialCreate
+    [Migration("20231206031638_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -152,6 +152,76 @@ namespace TravelBookingApp.Migrations
                     b.ToTable("FlightBookings");
                 });
 
+            modelBuilder.Entity("TravelBookingApp.Models.Hotel", b =>
+                {
+                    b.Property<int>("HotelId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("NumberOfRooms")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("Rating")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("HotelId");
+
+                    b.ToTable("Hotels");
+                });
+
+            modelBuilder.Entity("TravelBookingApp.Models.HotelBooking", b =>
+                {
+                    b.Property<int>("HotelBookingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CheckInDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CheckOutDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("HotelId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("NumberOfGuests")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("State")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("HotelBookingId");
+
+                    b.HasIndex("HotelId");
+
+                    b.ToTable("HotelBookings");
+                });
+
             modelBuilder.Entity("TravelBookingApp.Models.Passenger", b =>
                 {
                     b.Property<int>("PassengerId")
@@ -213,6 +283,15 @@ namespace TravelBookingApp.Migrations
                     b.Navigation("Flight");
                 });
 
+            modelBuilder.Entity("TravelBookingApp.Models.HotelBooking", b =>
+                {
+                    b.HasOne("TravelBookingApp.Models.Hotel", "Hotel")
+                        .WithMany("Bookings")
+                        .HasForeignKey("HotelId");
+
+                    b.Navigation("Hotel");
+                });
+
             modelBuilder.Entity("TravelBookingApp.Models.Passenger", b =>
                 {
                     b.HasOne("TravelBookingApp.Models.FlightBooking", "FlightBooking")
@@ -232,6 +311,11 @@ namespace TravelBookingApp.Migrations
             modelBuilder.Entity("TravelBookingApp.Models.FlightBooking", b =>
                 {
                     b.Navigation("Passengers");
+                });
+
+            modelBuilder.Entity("TravelBookingApp.Models.Hotel", b =>
+                {
+                    b.Navigation("Bookings");
                 });
 #pragma warning restore 612, 618
         }

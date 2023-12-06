@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TravelBookingApp.Models
@@ -10,15 +9,15 @@ namespace TravelBookingApp.Models
         {
             FullName = string.Empty;
             Email = string.Empty;
-            PhoneNumber = string.Empty;
+            PhoneNumber = string.Empty;   
         }
 
         [Key]
         public int HotelBookingId { get; set; }
-        
-        [ForeignKey("Hotel")]
-        public int HotelId { get; set; }
-        public virtual required Hotel Hotel { get; set; }
+
+        [ForeignKey(nameof(Hotel))]
+        public int? HotelId { get; set; }
+        public virtual Hotel? Hotel { get; set; }
 
         [Required(ErrorMessage = "Please enter your name.")]
         [Display(Name = "Full Name")]
@@ -41,17 +40,8 @@ namespace TravelBookingApp.Models
         [Range(1, int.MaxValue, ErrorMessage = "There must be at least one guest")]
         public int NumberOfGuests { get; set; }
 
-        [DataType(DataType.Currency)]
-        public decimal Price { get; set; }
-
         public BookingState State { get; set; } // Enum for booking state
-
-        public bool IsValidBookingDateRange() => CheckInDate < CheckOutDate && CheckInDate.Date >= DateTime.Today.Date;
-
-        public void CalculatePrice(decimal ratePerDay) => Price = (CheckOutDate - CheckInDate).Days * ratePerDay;
-
-        [NotMapped]
-        public int DurationInDays => (CheckOutDate - CheckInDate).Days;
+        
     }
 
     public enum BookingState

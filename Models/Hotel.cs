@@ -13,7 +13,6 @@ namespace TravelBookingApp.Models
             Description = string.Empty;
             Policies = new List<string>();
             ImageUrls = new List<string>();
-            Amenities = new List<string>();
             Bookings = new HashSet<HotelBooking>();
         }
 
@@ -34,12 +33,6 @@ namespace TravelBookingApp.Models
         [Range(1, int.MaxValue, ErrorMessage = "Number of rooms must be at least 1")]
         public int NumberOfRooms { get; set; }
 
-        [DataType(DataType.Currency)]
-        public decimal PriceRangeStart { get; set; }
-
-        [DataType(DataType.Currency)]
-        public decimal PriceRangeEnd { get; set; }
-
         public virtual ICollection<HotelBooking> Bookings { get; set; }
 
         [NotMapped]
@@ -48,8 +41,6 @@ namespace TravelBookingApp.Models
         [NotMapped]
         public List<string> ImageUrls { get; set; }
 
-        [NotMapped]
-        public List<string> Amenities { get; set; }
     }
 }
 

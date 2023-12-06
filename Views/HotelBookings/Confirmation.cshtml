@@ -9,11 +9,14 @@
 <div>
     <h2>@Model.Hotel.Name</h2>
     <p>Thank you for your booking. Here are the details of your stay:</p>
+
+
     <p><strong>Full Name:</strong> @Model.FullName</p>
     <p><strong>Phone Number:</strong> @Model.PhoneNumber</p>
     <p><strong>Check-In Date:</strong> @Model.CheckInDate.ToString("d")</p>
     <p><strong>Check-Out Date:</strong> @Model.CheckOutDate.ToString("d")</p>
     <p><strong>Number of Guests:</strong> @Model.NumberOfGuests</p>
-    <p><strong>Total Price:</strong> @Model.Price.ToString("C")</p>
+
+    <a href="@Url.Action("Index", "Home")" class="btn btn-primary my-custom-button">Back Home</a>
     
 </div>
