@@ -12,10 +12,14 @@
         <h3>@hotel.Name</h3>
         @foreach (var imageUrl in hotel.ImageUrls)
         {
-            <img src="@Url.Content($"~/images/{imageUrl}")" alt="Hotel Image" style="height: 100px; margin-right: 10px;" />
+            <img src="@Url.Content($"~/images/{imageUrl}")" alt="Hotel Image" style="height: 180px; margin-right: 15px;" />
         }
         <p>@hotel.Description</p>
         <p><strong>Rating:</strong> @hotel.Rating</p>
-        <a asp-action="CreateBooking" asp-route-hotelId="@hotel.HotelId" class="btn btn-primary">Book this Hotel</a>
+
+        <a asp-action="CreateBooking" asp-route-hotelId="@hotel.HotelId" class="btn btn-primary">Book Hotel</a>
+        
     </div>
+
 }
+

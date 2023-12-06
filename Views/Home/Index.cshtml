@@ -47,20 +47,19 @@
                     @if (Model.HotelBookings != null && Model.HotelBookings.Count > 0)
                     {
                         var index = 1;
-                        foreach (var booking in Model.HotelBookings)
+                        @foreach (var booking in Model.HotelBookings)
                         {
-                            <a asp-controller="HotelBookings" asp-action="Details" asp-route-id="@booking.Id">Booking # @index</a>
-
-                            <br />
+                            <div class="booking-link">
+                                <a asp-controller="HotelBookings" asp-action="Confirmation" asp-route-id="@booking.HotelId" class="btn btn-outline-light">Booking # @index</a>
+                            </div>
                             index++;
                         }
                     }
-                    else
-                    {
-                        <p>You have no hotel bookings.</p>
-                    }
                 </div>
-                <a asp-controller="HotelBookings" asp-action="SelectHotel" class="btn btn-outline-light">Create Booking</a>
+                <div class="card-footer">
+                    <a asp-controller="HotelBookings" asp-action="Index" class="btn btn-outline-light">View All Bookings</a>
+                    <a asp-controller="HotelBookings" asp-action="SelectHotel" class="btn btn-outline-light">Create Booking</a>
+                </div>
             </div>
         </div>
 

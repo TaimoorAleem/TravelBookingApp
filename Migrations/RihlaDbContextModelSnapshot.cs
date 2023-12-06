@@ -183,10 +183,6 @@ namespace TravelBookingApp.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -195,22 +191,140 @@ namespace TravelBookingApp.Migrations
                     b.Property<int>("NumberOfRooms")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("PriceRangeEnd")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("PriceRangeStart")
-                        .HasColumnType("TEXT");
-
                     b.Property<double>("Rating")
                         .HasColumnType("REAL");
 
                     b.HasKey("HotelId");
 
                     b.ToTable("Hotels");
+
+                    b.HasData(
+                        new
+                        {
+                            HotelId = 1,
+                            Address = "541 Ocean Drive",
+                            Description = "A beachfront hotel with stunning sea views.",
+                            Name = "Sea Breeze Resort",
+                            NumberOfRooms = 120,
+                            Rating = 4.5
+                        },
+                        new
+                        {
+                            HotelId = 2,
+                            Address = "247 Mountain Road",
+                            Description = "A cozy retreat in the heart of the mountains.",
+                            Name = "Mountain Escape",
+                            NumberOfRooms = 80,
+                            Rating = 4.7000000000000002
+                        },
+                        new
+                        {
+                            HotelId = 3,
+                            Address = "789 City Square",
+                            Description = "Modern amenities in the heart of the city.",
+                            Name = "Urban Hotel Central",
+                            NumberOfRooms = 150,
+                            Rating = 4.2000000000000002
+                        },
+                        new
+                        {
+                            HotelId = 4,
+                            Address = "078 Grand Avenue",
+                            Description = "Luxury experience in a historic setting.",
+                            Name = "The Grand Historic",
+                            NumberOfRooms = 100,
+                            Rating = 4.7999999999999998
+                        },
+                        new
+                        {
+                            HotelId = 5,
+                            Address = "776 Lakeview Terrace",
+                            Description = "Tranquil haven by the lake, perfect for a weekend getaway.",
+                            Name = "Lakeside Inn",
+                            NumberOfRooms = 70,
+                            Rating = 4.2999999999999998
+                        },
+                        new
+                        {
+                            HotelId = 6,
+                            Address = "832 Downtown Ave",
+                            Description = "Experience the city's vibe from our contemporary hotel.",
+                            Name = "Downtown Modern",
+                            NumberOfRooms = 200,
+                            Rating = 4.5999999999999996
+                        },
+                        new
+                        {
+                            HotelId = 7,
+                            Address = "623 Country Road",
+                            Description = "A cozy bed and breakfast with a homely charm.",
+                            Name = "Country Charm B&B",
+                            NumberOfRooms = 15,
+                            Rating = 4.9000000000000004
+                        },
+                        new
+                        {
+                            HotelId = 8,
+                            Address = "800 Adventure Lane",
+                            Description = "Perfect base for your hiking and outdoor adventures.",
+                            Name = "The Adventurer's Lodge",
+                            NumberOfRooms = 50,
+                            Rating = 4.4000000000000004
+                        },
+                        new
+                        {
+                            HotelId = 9,
+                            Address = "607 City Road",
+                            Description = "Affordable and convenient, right in the city center.",
+                            Name = "Budget City Stay",
+                            NumberOfRooms = 100,
+                            Rating = 3.7999999999999998
+                        },
+                        new
+                        {
+                            HotelId = 10,
+                            Address = "1356 Green Way",
+                            Description = "Sustainable and eco-friendly practices in a lush setting.",
+                            Name = "Eco-Friendly Retreat",
+                            NumberOfRooms = 40,
+                            Rating = 4.7000000000000002
+                        },
+                        new
+                        {
+                            HotelId = 11,
+                            Address = "1897 Skyline Blvd",
+                            Description = "Soaring high with stunning city skyline views.",
+                            Name = "Skyline Views Tower",
+                            NumberOfRooms = 180,
+                            Rating = 4.7999999999999998
+                        },
+                        new
+                        {
+                            HotelId = 12,
+                            Address = "1100 Heritage Road",
+                            Description = "A journey through history in our beautifully preserved hotel.",
+                            Name = "Historic Heritage Hotel",
+                            NumberOfRooms = 60,
+                            Rating = 4.5
+                        },
+                        new
+                        {
+                            HotelId = 13,
+                            Address = "0912 Family Park",
+                            Description = "The ultimate family destination with activities for all ages.",
+                            Name = "Family Fun Resort",
+                            NumberOfRooms = 150,
+                            Rating = 4.2000000000000002
+                        },
+                        new
+                        {
+                            HotelId = 14,
+                            Address = "424 Romantic Road",
+                            Description = "Intimate and romantic settings for couples.",
+                            Name = "Romantic Escape",
+                            NumberOfRooms = 30,
+                            Rating = 4.9000000000000004
+                        });
                 });
 
             modelBuilder.Entity("TravelBookingApp.Models.HotelBooking", b =>
@@ -225,16 +339,22 @@ namespace TravelBookingApp.Migrations
                     b.Property<DateTime>("CheckOutDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("HotelId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("Id")
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("HotelId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("NumberOfGuests")
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("Price")
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("State")
@@ -273,9 +393,7 @@ namespace TravelBookingApp.Migrations
                 {
                     b.HasOne("TravelBookingApp.Models.Hotel", "Hotel")
                         .WithMany("Bookings")
-                        .HasForeignKey("HotelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("HotelId");
 
                     b.Navigation("Hotel");
                 });
